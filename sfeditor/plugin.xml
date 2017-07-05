@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <!--====================================================-->
+   <!-- Extention points -->
+   <!--====================================================-->
+   <extension-point id="customTagConverter" name="customTagConverter" schema="schema/customTagConverter.exsd"/>
+   <extension-point id="customTagAttributeAssist" name="customTagAttributeAssist" schema="schema/customTagAttributeAssist.exsd"/>
+   <extension-point id="paletteItem" name="paletteItem" schema="schema/paletteItem.exsd"/>
+   <extension-point id="noValidationNatures" name="noValidationNatures" schema="schema/noValidationNatures.exsd"/>
+   <extension-point id="fileAssistProcessor" name="fileAssistProcessor" schema="schema/fileAssistProcessor.exsd"/>
+   <extension-point id="hyperlinkProvider" name="hyperlinkProvider" schema="schema/hyperlinkProvider.exsd"/>
+   <extension-point id="tldLocator" name="tldLocator" schema="schema/tldLocator.exsd"/>
+   <extension-point id="customTagValidator" name="customTagValidator" schema="schema/customTagValidator.exsd"/>
+   <extension-point id="preferenceContributer" name="preferenceContributer" schema="schema/preferenceContributer.exsd"/>
+   <extension-point id="pagefilter" name="pagefilter" schema="schema/pagefilter.exsd"/>
+   <extension-point id="javaScriptCompleter" name="javaScriptCompleter" schema="schema/javaScriptCompleter.exsd"/>
+   <extension-point id="jspelAssistProcessor" name="jspelAssistProcessor" schema="schema/jspelAssistProcessor.exsd"/>
+
+   <!--====================================================-->
+   <!-- Editors -->
+   <!--====================================================-->
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.solar.htmleditor.editors.HTMLEditor"
+            contributorClass="com.solar.htmleditor.editors.HTMLEditorContributor"
+            default="true"
+            extensions="html,xhtml"
+            icon="icons/html.png"
+            id="com.solar.htmleditor.editors.HTMLEditor"
+            name="%plugin.editor.htmleditor"/>
+      <editor
+            class="com.solar.csseditor.editors.CSSEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            extensions="css"
+            icon="icons/css.png"
+            id="com.solar.csseditor.editors.CSSEditor"
+            name="%plugin.editor.csseditor"/>
+      <editor
+            class="com.solar.jspeditor.editors.JSPEditor"
+            contributorClass="com.solar.jspeditor.editors.JSPEditorContributor"
+            extensions="jsp,jspf"
+            icon="icons/jsp.png"
+            id="com.solar.jspeditor.editors.JSPEditor"
+            name="%plugin.editor.jspeditor"/>
+      <editor
+            class="com.solar.xmleditor.editors.XMLEditor"
+            contributorClass="com.solar.xmleditor.editors.XMLEditorContributor"
+            extensions="xml,tld,xsl"
+            icon="icons/xml.png"
+            id="com.solar.xmleditor.editors.XMLEditor"
+            name="%plugin.editor.xmleditor">
+      </editor>
+      <editor
+            class="com.solar.dtdeditor.editors.DTDEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            extensions="dtd"
+            icon="icons/dtd.gif"
+            id="com.solar.dtdeditor.editors.DTDEditor"
+            name="%plugin.editor.dtdeditor"/>
+      <editor
+            class="com.solar.jseditor.editors.JavaScriptEditor"
+            contributorClass="com.solar.jseditor.editors.JavaScriptEditorContributor"
+            extensions="js"
+            icon="icons/javascript.gif"
+            id="com.solar.jseditor.editors.JavaScriptEditor"
+            name="%plugin.editor.jseditor"/>
+      <!--
+      <editor
+            class="com.solar.htmleditor.editors.WebBrowser"
+            extensions="url"
+            icon="icons/web.gif"
+            id="com.solar.htmleditor.editors.WebBrowser"
+            name="%plugin.editor.webbrowser"/>
+      -->
+   </extension>
+
+   <extension
+         point="com.solar.htmleditor.fileAssistProcessor">
+      <processor class="com.solar.htmleditor.assist.FileAssistProcessor"/>
+   </extension>
+   <extension
+         point="com.solar.htmleditor.customTagAttributeAssist">
+      <customTagAttributeAssist
+            class="com.solar.jspeditor.editors.JSTLAttributeAssist">
+      </customTagAttributeAssist>
+   </extension>
+
+   <!--====================================================-->
+   <!-- Wizards -->
+   <!--====================================================-->
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="%plugin.preference.category"
+            id="com.solar.htmleditor"/>
+      <wizard
+            class="com.solar.htmleditor.wizards.HTMLNewWizard"
+            icon="icons/html.png"
+            category="com.solar.htmleditor"
+            name="%plugin.wizard.html"
+            id="com.solar.htmleditor.wizards.HTMLNewWizard"/>
+      <!--
+      <wizard
+            icon="icons/web.gif"
+            class="com.solar.htmleditor.wizards.URLNewWizard"
+            category="com.solar.htmleditor"
+            name="%plugin.wizard.url"
+            id="com.solar.htmleditor.wizards.URLNewWizard"/>
+      -->
+      <wizard
+            class="com.solar.htmleditor.wizards.JSPNewWizard"
+            icon="icons/jsp.png"
+            category="com.solar.htmleditor"
+            name="%plugin.wizard.jsp"
+            id="com.solar.htmleditor.wizards.JSPNewWizard"/>
+      <wizard
+            class="com.solar.htmleditor.wizards.XMLNewWizard"
+            icon="icons/xml.png"
+            category="com.solar.htmleditor"
+            name="%plugin.wizard.xml"
+            id="com.solar.htmleditor.wizards.XMLNewWizard"/>
+      <wizard
+            category="com.solar.htmleditor"
+            class="com.solar.jseditor.wizards.AddJavaScriptLibraryWizard"
+            icon="icons/javascript.gif"
+            id="com.solar.jseditor.wizards.AddJavaScriptLibraryWizard"
+            name="%plugin.wizard.jslibrary">
+      </wizard>
+   </extension>
+
+   <!--====================================================-->
+   <!-- Preferences -->
+   <!--====================================================-->
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.solar.htmleditor.HTMLEditorPreferencePage"
+            name="%plugin.preference.category"
+            id="com.solar.htmleditor.category"/>
+      <!--
+      <page
+            class="com.solar.htmleditor.AppearancePreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.appearance"
+            id="com.solar.htmleditor.page1"/>
+      -->
+      <page
+            class="com.solar.htmleditor.CustomAssistPreferencePage"
+            category="com.solar.htmleditor.category/com.solar.htmleditor.AssistPreferencePage"
+            name="%plugin.preference.customassist"
+            id="com.solar.htmleditor.CustomAssistPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.DTDPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.dtd"
+            id="com.solar.htmleditor.DTDPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.TLDPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.tld"
+            id="com.solar.htmleditor.TLDPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.AssistPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.codeassist"
+            id="com.solar.htmleditor.AssistPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.CSSEditorPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.csseditor"
+            id="com.solar.htmleditor.CSSEditorPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.JSPEditorPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.jspeditor"
+            id="com.solar.htmleditor.JSPEditorPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.JavaScriptEditorPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.jseditor"
+            id="com.solar.htmleditor.JavaScriptEditorPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.tasktag.HTMLTaskTagPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.tasktag"
+            id="com.solar.htmleditor.tasktag.HTMLTaskTagPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.XMLPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="XML"
+            id="com.solar.htmleditor.XMLPreferencePage"/>
+      <page
+            class="com.solar.htmleditor.template.HTMLTemplatePreferencePage"
+            category="com.solar.htmleditor.category/com.solar.htmleditor.AssistPreferencePage"
+            name="%plugin.preference.template"
+            id="com.solar.htmleditor.template.HTMLTemplatePreferencePage"/>
+      <page
+            class="com.solar.htmleditor.FormatterPreferencePage"
+            category="com.solar.htmleditor.category"
+            name="%plugin.preference.formatter"
+            id="com.solar.htmleditor.FormatterPreferencePage"/>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="com.solar.htmleditor.HTMLPreferenceInitializer"/>
+   </extension>
+
+   <!--====================================================-->
+   <!-- Views -->
+   <!--====================================================-->
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="%plugin.preference.category"
+            id="com.solar.htmleditor"/>
+      <view
+            icon="icons/image.gif"
+            category="com.solar.htmleditor"
+            class="com.solar.htmleditor.views.ImageView"
+            name="%plugin.views.image"
+            id="com.solar.htmleditor.views.ImageView"/>
+
+      <view
+            class="com.solar.htmleditor.views.PaletteView"
+            category="com.solar.htmleditor"
+            icon="icons/palette.gif"
+            name="%plugin.views.palette"
+            id="com.solar.htmleditor.views.PaletteView"/>
+      <view
+            category="com.solar.htmleditor"
+            class="com.solar.htmleditor.views.CSSPreviewView"
+            icon="icons/css.png"
+            id="com.solar.htmleditor.views.CSSPreviewView"
+            name="%plugin.views.csspreview"/>
+   </extension>
+   <!--====================================================-->
+   <!-- Project properties -->
+   <!--====================================================-->
+   <extension
+         id="com.solar.htmleditor.HTMLProjectPropertyPage"
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="com.solar.htmleditor.HTMLProjectPropertyPage"
+            id="com.solar.htmleditor.HTMLProjectPropertyPage"
+            name="%plugin.preference.category">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+            </adapt>
+         </enabledWhen>
+      </page>
+      <page
+            category="com.solar.htmleditor.HTMLProjectPropertyPage"
+            class="com.solar.htmleditor.JavaScriptPropertyPage"
+            id="com.solar.htmleditor.JavaScriptPropertyPage"
+            name="JavaScript">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
+
+   <!--
+   <extension
+         point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            class="com.solar.jspeditor.editors.JSPSourceLocator"
+            name="JSP Source Locator"
+            id="com.solar.jspeditor.JSPSourceLocator"/>
+   </extension>
+   -->
+
+   <!--====================================================-->
+   <!-- Template -->
+   <!--====================================================-->
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <contextType
+            class="com.solar.htmleditor.template.HTMLContextType"
+            name="HTML/JSP/XML"
+            id="com.solar.htmleditor.templateContextType.html"/>
+      <contextType
+            class="com.solar.htmleditor.template.JavaScriptContextType"
+            name="JavaScript"
+            id="com.solar.htmleditor.templateContextType.javascript"/>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.catch"
+            id="com.solar.htmleditor.template.js.catch"
+            name="catch">
+         <pattern>
+catch (e) {
+	${cursor}// ${todo}: handle exception
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.do"
+            id="com.solar.htmleditor.template.js.do"
+            name="do">
+         <pattern>
+do {
+	${line_selection}${cursor}
+} while (${condition});
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.else"
+            id="com.solar.htmleditor.template.js.else"
+            name="else">
+         <pattern>
+else {
+	${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.elseif"
+            id="com.solar.htmleditor.template.js.elseif"
+            name="elseif">
+         <pattern>
+else if (${condition}) {
+	${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.for"
+            id="com.solar.htmleditor.template.js.for"
+            name="for">
+         <pattern>
+for (var ${index} = 0; ${index} &lt; ${array}.length; ${index}++) {
+	${line_selection}${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.forwithvar"
+            id="com.solar.htmleditor.template.js.forwithvar"
+            name="for">
+         <pattern>
+for (var ${index} = 0; ${index} &lt; ${array}.length; ${index}++) {
+	var ${array_element} = ${array}[${index}];
+	${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.forin"
+            id="com.solar.htmleditor.template.js.forin"
+            name="forin">
+         <pattern>
+for (var ${iterable_element} in ${iterable}) {
+	${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.function"
+            id="com.solar.htmleditor.template.js.function"
+            name="function">
+         <pattern>
+function ${name}(${args}) {
+    ${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.anonymousFunction"
+            id="com.solar.htmleditor.template.js.anonymousFunction"
+            name="function">
+         <pattern>
+function (${args}) {
+    ${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.if"
+            id="com.solar.htmleditor.template.js.if"
+            name="if">
+         <pattern>
+if (${condition}) {
+	${line_selection}${cursor}
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.ifelse"
+            id="com.solar.htmleditor.template.js.ifelse"
+            name="ifelse">
+         <pattern>
+if (${condition}) {
+	${cursor}
+} else {
+
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.lazy"
+            id="com.solar.htmleditor.template.js.lazy"
+            name="lazy">
+         <pattern>
+if (${name:var} == null) {
+	${name} = new ${type}(${arguments});
+	${cursor}
+}
+
+return ${name};
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.new"
+            id="com.solar.htmleditor.template.js.new"
+            name="new">
+         <pattern>
+new ${type}(${arguments});
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.newwithvar"
+            id="com.solar.htmleditor.template.js.newwithvar"
+            name="new">
+         <pattern>
+var ${name} = new ${type}(${arguments});
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.require"
+            id="com.solar.htmleditor.template.js.require"
+            name="require">
+         <pattern>
+require('${value}')
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.requirewithvar"
+            id="com.solar.htmleditor.template.js.requirewithvar"
+            name="require">
+         <pattern>
+var ${name} = require('${value}');
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.switch"
+            id="com.solar.htmleditor.template.js.switch"
+            name="switch">
+         <pattern>
+switch (${key}) {
+	case ${value}:
+		${cursor}
+		break;
+
+	default:
+		break;
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.try"
+            id="com.solar.htmleditor.template.js.try"
+            name="try">
+         <pattern>
+try {
+	${line_selection}${cursor}
+} catch (${e}) {
+	// ${todo}: handle exception
+}
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.var"
+            id="com.solar.htmleditor.template.js.var"
+            name="var">
+         <pattern>
+var ${name};
+         </pattern>
+      </template>
+      <template
+            autoinsert="false"
+            contextTypeId="com.solar.htmleditor.templateContextType.javascript"
+            description="%plugin.template.js.while"
+            id="com.solar.htmleditor.template.js.while"
+            name="while">
+         <pattern>
+while (${condition}) {
+	${line_selection}${cursor}
+}
+         </pattern>
+      </template>
+   </extension>
+
+   <!--====================================================-->
+   <!-- nature and builder -->
+   <!--====================================================-->
+   <extension
+         id="HTMLProjectNature"
+         name="HTMLProjectNature"
+         point="org.eclipse.core.resources.natures">
+      <!--
+      <requires-nature
+            id="org.eclipse.jdt.core.javanature">
+      </requires-nature>
+      -->
+      <runtime>
+         <run
+               class="com.solar.htmleditor.HTMLProjectNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         id="HTMLProjectBuilder"
+         name="HTMLProjectBuilder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run class="com.solar.htmleditor.HTMLProjectBuilder"/>
+      </builder>
+   </extension>
+
+   <!--====================================================-->
+   <!-- JavaScript Launcher -->
+   <!--====================================================-->
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="com.solar.jseditor.launch.JavaScriptLaunchConfigurationDelegate"
+            id="com.solar.jseditor.launch.JavaScriptLaunchConfigurationType"
+            modes="run"
+            name="%plugin.launcher.javascript"
+            public="true">
+         <fileExtension
+               default="false"
+               extension="js"/>
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="com.solar.jseditor.launch.JavaScriptLaunchConfigurationType"
+            icon="icons/javascript.gif"
+            id="com.solar.jseditor.launch.launchConfigurationTypeImage"/>
+   </extension>
+   <extension
+		 point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+	  <launchConfigurationTabGroup
+			type="com.solar.jseditor.launch.JavaScriptLaunchConfigurationType"
+			class="com.solar.jseditor.launch.JavaScriptTabGroup"
+			id="com.solar.jseditor.launch.JavaScriptTabGroup">
+	  </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="com.solar.jseditor.launch.JavaScriptLaunchShortcut"
+            icon="icons/javascript.gif"
+            id="com.solar.jseditor.launch.JavaScriptLaunchShortcut"
+            label="%plugin.launcher.javascript"
+            modes="run">
+         <contextualLaunch>
+            <enablement>
+               <with variable="selection">
+                  <count value="1"/>
+                  <iterate>
+                     <test
+                           property="org.eclipse.debug.ui.matchesPattern"
+                           value="*.js"/>
+                  </iterate>
+               </with>
+            </enablement>
+         </contextualLaunch>
+      </shortcut>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.core.classpathVariableInitializer">
+      <classpathVariableInitializer
+            class="com.solar.htmleditor.WebAppClasspathVariableInitializer"
+            variable="WEBAPP_LIBS"/>
+   </extension>
+   <!--
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="com.solar.htmleditor"
+            name="Eclipse HTML Editor"/>
+      <command
+            categoryId="com.solar.htmleditor"
+            id="com.solar.xmleditor.format"
+            name="%plugin.command.formatXML"/>
+      <command
+            categoryId="com.solar.htmleditor"
+            id="com.solar.jspeditor.format"
+            name="%plugin.command.formatJSP"/>
+   </extension>
+   -->
+   <!--
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.solar.xmleditor.format"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+SHIFT+F"/>
+      <key
+            commandId="com.solar.jspeditor.format"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+SHIFT+F"/>
+   </extension>
+   -->
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml"
+            primary="true">
+      </toc>
+   </extension>
+
+   <!--====================================================-->
+   <!-- JavaScript Completers -->
+   <!--====================================================-->
+   <extension
+         point="com.solar.htmleditor.javaScriptCompleter">
+      <completer
+            class="com.solar.jseditor.editors.additional.ECMAScriptCompleter"
+            name="ECMA Script">
+      </completer>
+      <completer
+            class="com.solar.jseditor.editors.additional.FireFoxCompleter"
+            name="FireFox">
+      </completer>
+      <completer
+            class="com.solar.jseditor.editors.additional.ChromeCompleter"
+            name="Chrome">
+      </completer>
+      <completer
+            class="com.solar.jseditor.editors.additional.PrototypeCompleter"
+            name="Prototype JavaScript framework">
+      </completer>
+      <completer
+            class="com.solar.jseditor.editors.additional.ScriptaculousCompleter"
+            name="script.aculo.us">
+      </completer>
+      <completer
+            class="com.solar.jseditor.editors.additional.JQueryCompleter"
+            name="jQuery">
+      </completer>
+      <completer
+            class="com.solar.jseditor.editors.additional.NodeJsCompleter"
+            name="Node.js">
+      </completer>
+<!--
+      <completer
+            class="com.solar.jseditor.editors.additional.AIRCompleter"
+            name="AIR">
+      </completer>
+-->
+   </extension>
+
+</plugin>
