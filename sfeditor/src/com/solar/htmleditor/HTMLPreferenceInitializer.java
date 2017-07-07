@@ -23,7 +23,10 @@ public class HTMLPreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(HTMLPlugin.PREF_COLOR_CSSPROP, StringConverter.asString(IHTMLColorConstants.CSS_PROP));
 		store.setDefault(HTMLPlugin.PREF_COLOR_CSSCOMMENT, StringConverter.asString(IHTMLColorConstants.CSS_COMMENT));
 		store.setDefault(HTMLPlugin.PREF_COLOR_CSSVALUE, StringConverter.asString(IHTMLColorConstants.CSS_VALUE));
-		store.setDefault(HTMLPlugin.PREF_EDITOR_TYPE, "tab");
+		store.setDefault(HTMLPlugin.PREF_EDITOR_TYPE, "noPreview");
+		store.setDefault(HTMLPlugin.FORMS_SERVER_DB, "jdbc:oracle:thin:@");
+		store.setDefault(HTMLPlugin.FORMS_SERVER_DBUSER, "username");
+		store.setDefault(HTMLPlugin.FORMS_SERVER_DBPASS, "password");
 		store.setDefault(HTMLPlugin.PREF_DTD_URI, "");
 		store.setDefault(HTMLPlugin.PREF_DTD_PATH, "");
 		store.setDefault(HTMLPlugin.PREF_DTD_CACHE, true);

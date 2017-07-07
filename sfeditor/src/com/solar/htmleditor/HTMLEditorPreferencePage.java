@@ -6,6 +6,7 @@ import org.eclipse.jface.preference.ColorFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
+import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -124,6 +125,23 @@ public class HTMLEditorPreferencePage extends FieldEditorPreferencePage implemen
 						{HTMLPlugin.getResourceString("HTMLEditorPreferencePage.EditorNoPreview"),"noPreview"}
 					},parent,true);
 		addField(editorType);
+		addField(new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DB, "SMARTFORMS DB URL:",
+               parent));
+        addField(new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DBUSER, "DB USERNAME:",
+                parent));
+        StringFieldEditor dbpass = new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DBPASS, "DB USERNAME:",
+                parent) {
+
+        	@Override
+        	    protected void doFillIntoGrid(Composite parent, int numColumns) {
+        	        super.doFillIntoGrid(parent, numColumns);
+
+        	        getTextControl().setEchoChar('*');
+        	    }
+
+        	};
+        addField(dbpass);
+		
 	}
 	
 	/** Background Color Field Editor */

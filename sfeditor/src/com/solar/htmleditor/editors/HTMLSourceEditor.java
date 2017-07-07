@@ -1,6 +1,10 @@
 package com.solar.htmleditor.editors;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -50,6 +54,11 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
@@ -68,6 +77,7 @@ import com.solar.htmleditor.HTMLProjectParams;
 import com.solar.htmleditor.HTMLUtil;
 import com.solar.htmleditor.SearchXPathDialog;
 import com.solar.htmleditor.assist.HTMLAssistProcessor;
+import com.solar.htmleditor.assist.SOTFormsSync;
 
 /**
  * HTML source editor.
@@ -88,6 +98,8 @@ public class HTMLSourceEditor extends TextEditor {
 	public static final String ACTION_COMPLETION = "ContentAssistProposal";
 	public static final String ACTION_FORMAT_HTML = "_format";
 	public static final String ACTION_SEARCH_XPATH = "_search_xpath";
+	public static final String ACTION_PULL_FORM = "_pull_form";
+	public static final String ACTION_PUSH_FORM = "_push_form";
 
 //	private boolean useSoftTab;
 //	private String softTab;
@@ -109,6 +121,8 @@ public class HTMLSourceEditor extends TextEditor {
 		setAction(ACTION_CHOOSE_COLOR, new ChooseColorAction(this));
 		setAction(ACTION_FORMAT_HTML, new FormatHTMLAction());
 		setAction(ACTION_SEARCH_XPATH, new SearchXPathAction());
+		setAction(ACTION_PULL_FORM, new FormsPullAction());
+		setAction(ACTION_PUSH_FORM, new FormsPushAction());
 
 		IPreferenceStore store = HTMLPlugin.getDefault().getPreferenceStore();
 		softTabListener = new SoftTabVerifyListener();
@@ -272,6 +286,8 @@ public class HTMLSourceEditor extends TextEditor {
 		addAction(menu,GROUP_HTML,ACTION_ESCAPE_HTML);
 		addAction(menu,GROUP_HTML,ACTION_COMMENT);
 		addAction(menu,GROUP_HTML,ACTION_FORMAT_HTML);
+		addAction(menu,GROUP_HTML,ACTION_PULL_FORM);
+		addAction(menu,GROUP_HTML,ACTION_PUSH_FORM);
 	}
 
 	protected final void editorContextMenuAboutToShow(IMenuManager menu) {
@@ -802,6 +818,45 @@ public class HTMLSourceEditor extends TextEditor {
 			dialog.open();
 		}
 	}
+	//TODO: add dialog and write db methods
+	
+	//Pull Forms from Server
+	private class FormsPullAction extends Action {
+
+		public FormsPullAction(){
+			super(HTMLPlugin.getResourceString("HTMLEditor.PullForm"));
+		}
+		
+		@Override 
+		public void run(){
+			SOTFormsSync formsync = new SOTFormsSync();
+			formsync.syncForm("test");
+			
+			/*if(dialog == null){
+				dialog = new SearchXPathDialog(getEditorSite().getShell());
+			}
+			dialog.open();*/
+		}
+	}
+
+	//Push Forms to Server
+		private class FormsPushAction extends Action {
+
+			public FormsPushAction(){
+				super(HTMLPlugin.getResourceString("HTMLEditor.PushForm"));
+			}
+			
+			@Override 
+			public void run(){
+				SOTFormsSync formsync = new SOTFormsSync();
+				formsync.syncForm("test");
+				
+				/*if(dialog == null){
+					dialog = new SearchXPathDialog(getEditorSite().getShell());
+				}
+				dialog.open();*/
+			}
+		}
 
 
 	/** The action to escape HTML tags in the selection. */

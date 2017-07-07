@@ -155,10 +155,14 @@ public class HTMLPlugin extends AbstractUIPlugin {
     public static final String PREF_FORMATTER_INDENT  = "_pref_formatter_indent";
     public static final String PREF_FORMATTER_TAB     = "_pref_formatter_tab";
     public static final String PREF_FORMATTER_LINE    = "_pref_formatter_line";
+    public static final String FORMS_SERVER_DB = "_pref_formserver_db";
+	public static final String FORMS_SERVER_DBUSER = "_pref_formserver_user";
+	public static final String FORMS_SERVER_DBPASS = "_pref_formserver_password";
 
 	public static final String[] SUPPORTED_IMAGE_TYPES = {
 			"gif","png","jpg","jpeg","bmp"
 	};
+	
 
 	private static Map<String, String> innerDTD = new LinkedHashMap<String, String>();
 	static {

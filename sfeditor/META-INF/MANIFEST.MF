@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Smartforms Web Editors
 Bundle-SymbolicName: com.solar.htmleditor;singleton=true
-Bundle-Version: 3.1.5
+Bundle-Version: 3.1.9.3
 Bundle-Activator: com.solar.htmleditor.HTMLPlugin
 Bundle-Vendor: GZSolartech
 Require-Bundle: org.eclipse.ui,
@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.debug,
  org.eclipse.jdt.debug.ui,
  org.eclipse.jdt.launching,
- org.eclipse.help
+ org.eclipse.help,
+ org.eclipse.ui.console
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: com.solar.csseditor.editors,
@@ -64,4 +65,5 @@ Bundle-ClassPath: .,
  lib/trang.jar,
  lib/xercesImpl.jar,
  lib/xml-apis.jar,
- lib/js.jar
+ lib/js.jar,
+ lib/ojdbc6.jar
