@@ -33,9 +33,9 @@ public class HTMLNewWizardPage extends WizardNewFileCreationPage {
 	
 	private static DocType[] docTypes = {
 			new DocType("",null,null),
-			new DocType("HTML 4.01 Strict","-//W3C//DTD HTML 4.01//EN","http://www.w3.org/TR/html4/strict.dtd"),
+			/*new DocType("HTML 4.01 Strict","-//W3C//DTD HTML 4.01//EN","http://www.w3.org/TR/html4/strict.dtd"),
 			new DocType("HTML 4.01 Transitional","-//W3C//DTD HTML 4.01 Transitional//EN","http://www.w3.org/TR/html4/loose.dtd"),
-			new DocType("HTML 4.01 Frameset","-//W3C//DTD HTML 4.01 Frameset//EN","http://www.w3.org/TR/html4/frameset.dtd")
+			new DocType("HTML 4.01 Frameset","-//W3C//DTD HTML 4.01 Frameset//EN","http://www.w3.org/TR/html4/frameset.dtd")*/
 	};
 	
 	public HTMLNewWizardPage(ISelection selection) {
@@ -47,7 +47,7 @@ public class HTMLNewWizardPage extends WizardNewFileCreationPage {
 
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		this.setFileName("newfile.html");
+		this.setFileName("newform.xsp");
 		Composite container = new Composite((Composite)getControl(),SWT.NONE);
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
@@ -88,7 +88,7 @@ public class HTMLNewWizardPage extends WizardNewFileCreationPage {
 //		}
 		// Generate HTML
 		StringBuffer sb = new StringBuffer();
-		if(!docType.label.equals("") && docType.format!=null && !docType.format.equals("")){
+		/*if(!docType.label.equals("") && docType.format!=null && !docType.format.equals("")){
 			sb.append("<!DOCTYPE HTML PUBLIC \""+docType.format+"\"");
 			if(docType.dtd!=null && !docType.dtd.equals("")){
 				sb.append(" \"" + docType.dtd + "\"");
@@ -106,7 +106,8 @@ public class HTMLNewWizardPage extends WizardNewFileCreationPage {
 		sb.append("</head>\n");
 		sb.append("<body>\n");
 		sb.append("</body>\n");
-		sb.append("</html>\n");		
+		sb.append("</html>\n");		*/
+		sb.append("<!--" + HTMLUtil.escapeHTML("请开始表单开发") + " -->\n");
 		return new ByteArrayInputStream(sb.toString().getBytes());
 	}
 	

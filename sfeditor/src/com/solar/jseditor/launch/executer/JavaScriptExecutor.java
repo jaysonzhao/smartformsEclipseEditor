@@ -28,7 +28,7 @@ public class JavaScriptExecutor {
 				}
 			}
 			cx.evaluateReader(scope, new FileReader(file), file.getName(), 1, null);
-
+            
 		} finally {
 			Context.exit();
 		}

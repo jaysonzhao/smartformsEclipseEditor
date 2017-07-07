@@ -11,11 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import jp.aonir.fuzzyxml.FuzzyXMLDocument;
-import jp.aonir.fuzzyxml.FuzzyXMLElement;
-import jp.aonir.fuzzyxml.FuzzyXMLNode;
-import jp.aonir.fuzzyxml.FuzzyXMLParser;
-
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.internal.ui.palette.editparts.ToolEntryEditPart;
 import org.eclipse.gef.palette.PaletteDrawer;
@@ -59,6 +54,11 @@ import com.solar.htmleditor.assist.TagInfo;
 import com.solar.htmleditor.editors.HTMLSourceEditor;
 import com.solar.jspeditor.editors.TLDParser;
 
+import jp.aonir.fuzzyxml.FuzzyXMLDocument;
+import jp.aonir.fuzzyxml.FuzzyXMLElement;
+import jp.aonir.fuzzyxml.FuzzyXMLNode;
+import jp.aonir.fuzzyxml.FuzzyXMLParser;
+
 
 /**
  * PaletteView.
@@ -81,9 +81,37 @@ public class PaletteView extends ViewPart {
 		addPaletteItem("HTML",new DefaultPaletteItem("bpmextinfo",
 				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_FORM),
 				"<sot:bpmexecinfo taskId=\"\" workflowCode=\"\"  />"));
-		addPaletteItem("HTML",new DefaultPaletteItem("text",
+		addPaletteItem("HTML",new DefaultPaletteItem("bpmrouting",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_FORM),
+				"<sot:bpmrouting taskId=\"\" workflowCode=\"\"  />"));
+		addPaletteItem("HTML",new DefaultPaletteItem("bpmtoolbar",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_FORM),
+				"<sot:bpmtoolbar taskId=\"\" workflowCode=\"\"  />"));
+		addPaletteItem("HTML",new DefaultPaletteItem("bpmnote",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_FORM),
+				"<sot:bpmnote taskId=\"\" workflowCode=\"\"  />"));
+		addPaletteItem("HTML",new DefaultPaletteItem("bpmauditlist",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_FORM),
+				"<sot:bpmnote documentId=\"\" tableId=\"\" templateCode=\"\" />"));
+		addPaletteItem("HTML",new DefaultPaletteItem("Workflow Control",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_FORM),
+				"<sot:wfctrl name=\"\" desc=\"\" mode=\"\" condition=\"\"/>"));
+		addPaletteItem("HTML",new DefaultPaletteItem("User dialog",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_FORM),
+				"<sot:userDlg name=\"\" id=\"\" cssstyle=\"width:200px;height:28px;\"/>"));
+		
+		addPaletteItem("HTML",new DefaultPaletteItem("subform",
 				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_TEXT),
-				"<sot:textfield type=\"text\" name=\"\" value=\"\" />"));
+				"<sot:subform formname=\"text\" />"));
+		addPaletteItem("HTML",new DefaultPaletteItem("shareSubForm",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_TEXT),
+				"<sot:shareSubForm formname=\"text\" />"));
+		addPaletteItem("HTML",new DefaultPaletteItem("span",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_TEXT),
+				"<sot:span id=\"text\" key=\"\" value=\"\" />"));
+		addPaletteItem("HTML",new DefaultPaletteItem("textfield",
+				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_TEXT),
+				"<sot:textfield id=\"text\" name=\"\" value=\"\" />"));
 		addPaletteItem("HTML",new DefaultPaletteItem("textarea",
 				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_TEXTAREA),
 				"<sot:textarea id=\"\" name=\"\"></sot:textarea>"));
@@ -108,7 +136,8 @@ public class PaletteView extends ViewPart {
 		addPaletteItem("HTML",new DefaultPaletteItem("list",
 				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_BUTTON),
 				"<sot:list   staticvalue=\"1|2,3|4\" data=\"select item_name text ,item_id id from FMW_MENU_ITEM \" ></sot:list>"));
-		
+		addPaletteItem("HTML", new SotTableV2PalletteItem());
+				
 		/*addPaletteItem("JSP",new DefaultPaletteItem("jsp:useBean",
 				HTMLPlugin.getDefault().getImageRegistry().getDescriptor(HTMLPlugin.ICON_TAG),
 				"<jsp:useBean id=\"\" class=\"\" scope=\"\" />"));

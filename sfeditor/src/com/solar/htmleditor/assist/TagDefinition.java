@@ -56,10 +56,424 @@ public class TagDefinition {
 	}
 	
 	/**
+	 * Adds common smartforms control attributes to TagInfo.
+	 * 
+	 * @param tagInfo TagInfo
+	 */
+	private static void addAppearenceAttr(TagInfo tagInfo){
+		tagInfo.addAttributeInfo(new AttributeInfo("cssclass",true, AttributeInfo.CSS));
+		tagInfo.addAttributeInfo(new AttributeInfo("cssstyle",true, AttributeInfo.CSS));
+		tagInfo.addAttributeInfo(new AttributeInfo("disabled",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("readonly",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("readstyle",true, AttributeInfo.CSS));
+		tagInfo.addAttributeInfo(new AttributeInfo("readclass",true, AttributeInfo.CSS));
+		tagInfo.addAttributeInfo(new AttributeInfo("hidden",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("require",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("minlength",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("maxlength",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("width",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("height",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("htmlattrs",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("escape",true));
+	}
+	
+	/**
+	 * Adds common bpm control attributes to TagInfo.
+	 * 
+	 * @param tagInfo TagInfo
+	 */
+	private static void addBPMAttr(TagInfo tagInfo){
+		tagInfo.addAttributeInfo(new AttributeInfo("taskId",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("workflowCode",true));
+		
+	}
+	
+	/**
+	 * Adds common id and name smartforms control attributes to TagInfo.
+	 * 
+	 * @param tagInfo TagInfo
+	 */
+	private static void addNameAttr(TagInfo tagInfo){
+		tagInfo.addAttributeInfo(new AttributeInfo("id",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("name",true));
+	
+	}
+	
+	/**
+	 * Adds common control data binding attributes to TagInfo.
+	 * 
+	 * @param tagInfo TagInfo
+	 */
+	private static void addDataAttr(TagInfo tagInfo){
+		tagInfo.addAttributeInfo(new AttributeInfo("staticvalue",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("value",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("data",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("dynamicData",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("param",true));
+		tagInfo.addAttributeInfo(new AttributeInfo("bindingResource",true));
+	}
+	
+	/**
 	 * Initializes the HTML-tag definition.
 	 * I want to initialize this by DTD, but DTDParser can't parse HTML-DTD...
+	 * 添加SMARTFORM 控件标签及相关属性
 	 */
 	static {
+		
+		TagInfo bpmexecinfo = new TagInfo("sot:bpmexecinfo",true);
+		addBPMAttr(bpmexecinfo);
+		addTagInfo(bpmexecinfo);
+		
+		TagInfo bpmrouting = new TagInfo("sot:bpmrouting",true);
+		bpmrouting.addAttributeInfo(new AttributeInfo("direction",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("nextStepLabel",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("nextOwnerLabel",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("outerPanelStyle",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("outerPanelClass",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("innerPanelStyle",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("innerPanelClass",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("infoTableStyle",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("infoTableClass",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("textboxStyle",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("textboxClass",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("expand",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("userBtn",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("expandOnchange",true));
+		bpmrouting.addAttributeInfo(new AttributeInfo("userBtnClick",true));
+		addBPMAttr(bpmrouting);
+		addTagInfo(bpmrouting);
+		
+		TagInfo bpmtoolpanel = new TagInfo("sot:bpmtoolpanel",true);
+		addTagInfo(bpmtoolpanel);
+		
+		TagInfo bpmtoolbar = new TagInfo("sot:bpmtoolbar",true);
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("querySaveFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("snapshotId",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("params",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("querySubmitFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryRollbackFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryRollbackWndFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryRetakeFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryRetakeWndFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryTransferFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryTransferWndFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryOverSignFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryOverSignWndFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryPassbyFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryPassbyWndFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryWfStatusFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryCancelFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryCancelWndFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryUserRemindFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("queryUserRemindWndFn",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("outerPanelStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("outerPanelClass",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("innerPanelStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("buttonClass",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnSaveStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnSubmitStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnRollbackStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnRetakeStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnTransferStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnOverSignStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnPassbyStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnWfstatusStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnCancelStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnUserRemindStyle",true,AttributeInfo.CSS));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnSaveLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnSubmitLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnRollbackLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnRetakeLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnTransferLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnOverSignLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnPassbyLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnWfstatusLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnCancelLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnUserRemindLabel",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnSaveTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnSubmitTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnRollbackTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnRetakeTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnTransferTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnOverSignTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnPassbyTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnWfstatusTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnCancelTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("btnUserRemindTitle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("pandelPlace",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("buttonSetDefStyle",true));
+		bpmtoolbar.addAttributeInfo(new AttributeInfo("buttonSortList",true));
+		addBPMAttr(bpmtoolbar);
+		addTagInfo(bpmtoolbar);
+		
+		TagInfo bpmnote = new TagInfo("sot:bpmnote",true);
+		bpmnote.addAttributeInfo(new AttributeInfo("direction",true));
+		bpmnote.addAttributeInfo(new AttributeInfo("noteLabel",true));
+		bpmnote.addAttributeInfo(new AttributeInfo("outerPanelStyle",true,AttributeInfo.CSS));
+		bpmnote.addAttributeInfo(new AttributeInfo("outerPanelClass",true,AttributeInfo.CSS));
+		bpmnote.addAttributeInfo(new AttributeInfo("innerPanelStyle",true,AttributeInfo.CSS));
+		bpmnote.addAttributeInfo(new AttributeInfo("innerPanelClass",true,AttributeInfo.CSS));
+		bpmnote.addAttributeInfo(new AttributeInfo("infoTableStyle",true,AttributeInfo.CSS));
+		bpmnote.addAttributeInfo(new AttributeInfo("infoTableClass",true,AttributeInfo.CSS));
+		bpmnote.addAttributeInfo(new AttributeInfo("textareaStyle",true,AttributeInfo.CSS));
+		bpmnote.addAttributeInfo(new AttributeInfo("textareaClass",true,AttributeInfo.CSS));
+		addBPMAttr(bpmnote);
+		addTagInfo(bpmnote);
+		
+		TagInfo bpmauditlist = new TagInfo("sot:bpmauditlist",true);
+		bpmauditlist.addAttributeInfo(new AttributeInfo("documentId",true));
+		bpmauditlist.addAttributeInfo(new AttributeInfo("tableStyle",true,AttributeInfo.CSS));
+		bpmauditlist.addAttributeInfo(new AttributeInfo("tableClass",true,AttributeInfo.CSS));
+		bpmauditlist.addAttributeInfo(new AttributeInfo("tableId",true));
+		bpmauditlist.addAttributeInfo(new AttributeInfo("templateCode",true));
+		bpmauditlist.addAttributeInfo(new AttributeInfo("auditDataSetClsName",true));
+		addTagInfo(bpmauditlist);
+		
+		TagInfo wfctrl = new TagInfo("sot:wfctrl",true);
+		wfctrl.addAttributeInfo(new AttributeInfo("name",true));
+		wfctrl.addAttributeInfo(new AttributeInfo("desc",true));
+		wfctrl.addAttributeInfo(new AttributeInfo("mode",true));
+		wfctrl.addAttributeInfo(new AttributeInfo("condition",true));
+		addTagInfo(wfctrl);
+		
+		TagInfo sottextfield = new TagInfo("sot:textfield",true);
+		addAppearenceAttr(sottextfield);
+		addEventAttr(sottextfield);
+		addNameAttr(sottextfield);
+		addTagInfo(sottextfield);
+		
+		TagInfo sottextarea = new TagInfo("sot:textarea",true);
+		addAppearenceAttr(sottextarea);
+		addEventAttr(sottextarea);
+		addNameAttr(sottextarea);
+		addTagInfo(sottextarea);
+		
+		TagInfo sotcombobox = new TagInfo("sot:combobox",true);
+		addAppearenceAttr(sotcombobox);
+		addEventAttr(sotcombobox);
+		addNameAttr(sotcombobox);
+		addDataAttr(sotcombobox);
+		addTagInfo(sotcombobox);
+		
+		TagInfo sotcheckbox = new TagInfo("sot:checkbox",true);
+		addAppearenceAttr(sotcheckbox);
+		addEventAttr(sotcheckbox);
+		addNameAttr(sotcheckbox);
+		addDataAttr(sotcheckbox);
+		addTagInfo(sotcheckbox);
+		
+		TagInfo sotradio = new TagInfo("sot:radio",true);
+		addAppearenceAttr(sotradio);
+		addEventAttr(sotradio);
+		addNameAttr(sotradio);
+		addDataAttr(sotradio);
+		addTagInfo(sotradio);
+		
+		TagInfo sotpassword = new TagInfo("sot:password",true);
+		addAppearenceAttr(sotpassword);
+		addEventAttr(sotpassword);
+		addNameAttr(sotpassword);
+		addTagInfo(sotpassword);
+		
+		TagInfo sotdatefield = new TagInfo("sot:datefield",true);
+		sotdatefield.addAttributeInfo(new AttributeInfo("parser",true));
+		sotdatefield.addAttributeInfo(new AttributeInfo("formatter",true));
+		addAppearenceAttr(sotdatefield);
+		addEventAttr(sotdatefield);
+		addNameAttr(sotdatefield);
+		addTagInfo(sotdatefield);
+		
+		TagInfo sotnumberfield = new TagInfo("sot:numberfield",true);
+		sotnumberfield.addAttributeInfo(new AttributeInfo("precision",true));
+		sotnumberfield.addAttributeInfo(new AttributeInfo("max",true));
+		sotnumberfield.addAttributeInfo(new AttributeInfo("min",true));
+		addAppearenceAttr(sotnumberfield);
+		addEventAttr(sotnumberfield);
+		addNameAttr(sotnumberfield);
+		addTagInfo(sotnumberfield);
+		
+		TagInfo sotfileupload = new TagInfo("sot:fileupload",true);
+		sotfileupload.addAttributeInfo(new AttributeInfo("downloadid",true));
+		sotfileupload.addAttributeInfo(new AttributeInfo("callback",true));
+		sotfileupload.addAttributeInfo(new AttributeInfo("folder",true));
+		sotfileupload.addAttributeInfo(new AttributeInfo("suffixes",true));
+		addAppearenceAttr(sotfileupload);
+		addNameAttr(sotfileupload);
+		addTagInfo(sotfileupload);
+		
+		TagInfo sotfiledownload = new TagInfo("sot:filedownload",true);
+		sotfiledownload.addAttributeInfo(new AttributeInfo("optrtoolbar",true));
+		sotfiledownload.addAttributeInfo(new AttributeInfo("delbtn",true));
+		sotfiledownload.addAttributeInfo(new AttributeInfo("downbtn",true));
+		sotfiledownload.addAttributeInfo(new AttributeInfo("downopenbtn",true));
+		sotfiledownload.addAttributeInfo(new AttributeInfo("columns",true));
+		addAppearenceAttr(sotfiledownload);
+		addNameAttr(sotfiledownload);
+		addTagInfo(sotfiledownload);
+		
+		TagInfo sotencrypttextfield = new TagInfo("sot:encrypttextfield",true);
+		sotencrypttextfield.addAttributeInfo(new AttributeInfo("editrole",true));
+		sotencrypttextfield.addAttributeInfo(new AttributeInfo("readrole",true));
+		sotencrypttextfield.addAttributeInfo(new AttributeInfo("controlclass",true));
+		sotencrypttextfield.addAttributeInfo(new AttributeInfo("encrypt",true));
+		sotencrypttextfield.addAttributeInfo(new AttributeInfo("decrypt",true));
+		addAppearenceAttr(sotencrypttextfield);
+		addEventAttr(sotencrypttextfield);
+		addNameAttr(sotencrypttextfield);
+		addTagInfo(sotencrypttextfield);
+		
+		TagInfo sotencrypttextarea = new TagInfo("sot:encrypttextarea",true);
+		sotencrypttextarea.addAttributeInfo(new AttributeInfo("editrole",true));
+		sotencrypttextarea.addAttributeInfo(new AttributeInfo("readrole",true));
+		sotencrypttextarea.addAttributeInfo(new AttributeInfo("controlclass",true));
+		sotencrypttextarea.addAttributeInfo(new AttributeInfo("encrypt",true));
+		sotencrypttextarea.addAttributeInfo(new AttributeInfo("decrypt",true));
+		addAppearenceAttr(sotencrypttextarea);
+		addEventAttr(sotencrypttextarea);
+		addNameAttr(sotencrypttextarea);
+		addTagInfo(sotencrypttextarea);
+		
+		TagInfo sotsubform = new TagInfo("sot:subform",true);
+		sotsubform.addAttributeInfo(new AttributeInfo("formname",true));
+		addTagInfo(sotsubform);
+		
+		TagInfo sotsubmit = new TagInfo("sot:submit",true);
+		sotsubmit.addAttributeInfo(new AttributeInfo("htmlattrs",true));
+		addTagInfo(sotsubmit);
+		
+		TagInfo sotuserDlg = new TagInfo("sot:userDlg",true);
+		sotuserDlg.addAttributeInfo(new AttributeInfo("cssstyle",true));
+		addNameAttr(sotuserDlg);
+		addTagInfo(sotuserDlg);
+		
+		TagInfo sotdeptDlg = new TagInfo("sot:deptDlg",true);
+		sotdeptDlg.addAttributeInfo(new AttributeInfo("cssstyle",true));
+		addNameAttr(sotdeptDlg);
+		addTagInfo(sotdeptDlg);
+		
+		TagInfo sotspan = new TagInfo("sot:span",true);
+		sotspan.addAttributeInfo(new AttributeInfo("cssstyle",true));
+		sotspan.addAttributeInfo(new AttributeInfo("binding",true));
+		sotspan.addAttributeInfo(new AttributeInfo("key",true));
+		sotspan.addAttributeInfo(new AttributeInfo("value",true));
+		addNameAttr(sotspan);
+		addTagInfo(sotspan);
+		
+		TagInfo sotpanel = new TagInfo("sot:panel",true);
+		sotpanel.addAttributeInfo(new AttributeInfo("mode",true));
+		sotpanel.addAttributeInfo(new AttributeInfo("readonly",true));
+		addTagInfo(sotpanel);
+		
+		TagInfo sotbtn = new TagInfo("sot:btn",true);
+		sotbtn.addAttributeInfo(new AttributeInfo("key",true));
+		addNameAttr(sotbtn);
+		addAppearenceAttr(sotbtn);
+		addEventAttr(sotbtn);
+		addTagInfo(sotbtn);
+		
+		TagInfo soteditor = new TagInfo("sot:editor",true);
+		soteditor.addAttributeInfo(new AttributeInfo("width",true));
+		soteditor.addAttributeInfo(new AttributeInfo("height",true));
+		addNameAttr(soteditor);
+		addTagInfo(soteditor);
+		
+		
+		TagInfo sotopenForm= new TagInfo("sot:openForm",true);
+		sotopenForm.addAttributeInfo(new AttributeInfo("formname",true));
+		sotopenForm.addAttributeInfo(new AttributeInfo("appName",true));
+		addTagInfo(sotopenForm);
+	
+		TagInfo sottext= new TagInfo("sot:text",true);
+		sottext.addAttributeInfo(new AttributeInfo("name",true));
+		addTagInfo(sottext);
+		
+		TagInfo sotparam= new TagInfo("sot:param",true);
+		sotparam.addAttributeInfo(new AttributeInfo("key",true));
+		sotparam.addAttributeInfo(new AttributeInfo("value",true));
+		addTagInfo(sotparam);
+		
+		TagInfo sotsharesubform = new TagInfo("sot:shareSubForm",true);
+		sotsharesubform.addAttributeInfo(new AttributeInfo("formname",true));
+		addTagInfo(sotsharesubform);
+		
+		TagInfo sotlist = new TagInfo("sot:list",true);
+		sotlist.addAttributeInfo(new AttributeInfo("staticvalue",true));
+		sotlist.addAttributeInfo(new AttributeInfo("cssstyle",true,AttributeInfo.CSS));
+		sotlist.addAttributeInfo(new AttributeInfo("cssclass",true,AttributeInfo.CSS));
+		sotlist.addAttributeInfo(new AttributeInfo("name",true));
+		sotlist.addAttributeInfo(new AttributeInfo("size",true));
+		sotlist.addAttributeInfo(new AttributeInfo("data",true));
+		addTagInfo(sotlist);
+		
+		TagInfo sotcurrency = new TagInfo("sot:currency",true);
+		addNameAttr(sotcurrency);
+		addAppearenceAttr(sotcurrency);
+		addEventAttr(sotcurrency);
+		addTagInfo(sotcurrency);
+		
+		TagInfo sotdataview = new TagInfo("sot:dataview",true);
+		sotdataview.addAttributeInfo(new AttributeInfo("formName",true));
+		sotdataview.addAttributeInfo(new AttributeInfo("rows",true));
+		sotdataview.addAttributeInfo(new AttributeInfo("order",true));
+		sotdataview.addAttributeInfo(new AttributeInfo("relate",true));
+		addTagInfo(sotdataview);
+		
+		TagInfo sotquery = new TagInfo("sot:query",true);
+		sotquery.addAttributeInfo(new AttributeInfo("resetValue",true));
+		sotquery.addAttributeInfo(new AttributeInfo("searchValue",true));
+		addTagInfo(sotquery);
+		
+		TagInfo sotcondition = new TagInfo("sot:condition",true);
+		sotcondition.addAttributeInfo(new AttributeInfo("name",true));
+		sotcondition.addAttributeInfo(new AttributeInfo("text",true));
+		sotcondition.addAttributeInfo(new AttributeInfo("inputType",true));
+		sotcondition.addAttributeInfo(new AttributeInfo("data",true));
+		sotcondition.addAttributeInfo(new AttributeInfo("binding",true));
+		sotcondition.addAttributeInfo(new AttributeInfo("staticvalue",true));
+		addTagInfo(sotcondition);
+		
+		TagInfo sotcolumns = new TagInfo("sot:columns",true);
+		addTagInfo(sotcolumns);
+		
+		TagInfo sotitem = new TagInfo("sot:item",true);
+		sotitem.addAttributeInfo(new AttributeInfo("title",true));
+		sotitem.addAttributeInfo(new AttributeInfo("binding",true));
+		sotitem.addAttributeInfo(new AttributeInfo("alias",true));
+		sotitem.addAttributeInfo(new AttributeInfo("cssstyle",true,AttributeInfo.CSS));
+		sotitem.addAttributeInfo(new AttributeInfo("cssclass",true,AttributeInfo.CSS));
+		addTagInfo(sotitem);
+		
+		TagInfo sottableV2 = new TagInfo("sot:tableV2",true);
+		sottableV2.addAttributeInfo(new AttributeInfo("id",true));
+		sottableV2.addAttributeInfo(new AttributeInfo("autoid",true));
+		sottableV2.addAttributeInfo(new AttributeInfo("autoedit",true));
+		sottableV2.addAttributeInfo(new AttributeInfo("autoupd",true));
+		sottableV2.addAttributeInfo(new AttributeInfo("savefmt",true));
+		sottableV2.addAttributeInfo(new AttributeInfo("cssstyle",true,AttributeInfo.CSS));
+		sottableV2.addAttributeInfo(new AttributeInfo("cssclass",true,AttributeInfo.CSS));
+		addTagInfo(sottableV2);
+		
+		TagInfo sottheadV2 = new TagInfo("sot:theadV2",true);
+		addTagInfo(sottheadV2);
+		
+		TagInfo sottbodyV2 = new TagInfo("sot:tbodyV2",true);
+		addTagInfo(sottbodyV2);
+		
+		TagInfo sottableViewV2 = new TagInfo("sot:tableViewV2",true);
+		sottableViewV2.addAttributeInfo(new AttributeInfo("id",true));
+		sottableViewV2.addAttributeInfo(new AttributeInfo("documentId",true));
+		sottableViewV2.addAttributeInfo(new AttributeInfo("tableId",true));
+		sottableViewV2.addAttributeInfo(new AttributeInfo("orderColumn",true));
+		addTagInfo(sottableViewV2);
+		
+		TagInfo sottheadViewV2 = new TagInfo("sot:theadViewV2",true);
+		addTagInfo(sottheadViewV2);
+		
+		TagInfo sottbodyViewV2 = new TagInfo("sot:tbodyViewV2",true);
+		addTagInfo(sottbodyViewV2);
+		
+		//smartforms controls above
+		
 		TagInfo a = new TagInfo("a",true);
 		a.addAttributeInfo(new AttributeInfo("href",true,AttributeInfo.FILE));
 		a.addAttributeInfo(new AttributeInfo("name",true));

@@ -3,13 +3,9 @@ package com.solar.htmleditor.editors;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import jp.aonir.fuzzyxml.FuzzyXMLDocument;
-import jp.aonir.fuzzyxml.FuzzyXMLParser;
-import jp.aonir.fuzzyxml.event.FuzzyXMLErrorEvent;
-import jp.aonir.fuzzyxml.event.FuzzyXMLErrorListener;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -19,6 +15,11 @@ import org.w3c.tidy.Tidy;
 import com.solar.htmleditor.HTMLPlugin;
 import com.solar.htmleditor.HTMLUtil;
 import com.solar.htmleditor.IOUtil;
+
+import jp.aonir.fuzzyxml.FuzzyXMLDocument;
+import jp.aonir.fuzzyxml.FuzzyXMLParser;
+import jp.aonir.fuzzyxml.event.FuzzyXMLErrorEvent;
+import jp.aonir.fuzzyxml.event.FuzzyXMLErrorListener;
 
 /**
  * The HTML Validator that is called by HTMLSourceEditor.
@@ -66,6 +67,15 @@ public class HTMLValidator implements FuzzyXMLErrorListener {
 					tidy.setInputEncoding(file.getCharset());
 					tidy.setOutputEncoding("UTF-8");
 					tidy.setErrout(new PrintWriter(out, true));
+					Properties props=new Properties();
+					props.setProperty("new-blocklevel-tags", 
+							"sot:textfield sot:textarea sot:combobox sot:checkbox sot:radio sot:password sot:datefield sot:numberfield sot:fileupload sot:filedownload"
+							+ " sot:encrypttextfield sot:encrypttextarea sot:subform sot:submit sot:userdlg sot:deptdlg"
+							+ " sot:span sot:panel sot:btn sot:editor sot:openForm sot:text sot:param sot:sharesubform"
+							+ " sot:list sot:currency sot:dataview sot:query sot:condition sot:columns sot:item"
+							+ " sot:tablev2 sot:theadv2 sot:tbodyv2 sot:tableviewv2 sot:theadviewv2 sot:tbodyviewv2"
+							+ " sot:bpmexecinfo sot:bpmrouting sot:bpmtoolbar sot:bpmtoolpanel sot:bpmnote bpmauditlist sot:wfctrl");
+					tidy.setConfigurationFromProps(props);
 					tidy.parse(file.getContents(), (OutputStream) null);
 
 					String errors = new String(out.toByteArray());
@@ -134,7 +144,7 @@ public class HTMLValidator implements FuzzyXMLErrorListener {
 	 */
 	protected boolean validateUsingTidy(){
 		// not valudate when the target document is XHTML
-		if(file.getName().endsWith(".xsp")){
+		if(file.getName().endsWith(".xhtml")){
 			return false;
 		}
 		try {

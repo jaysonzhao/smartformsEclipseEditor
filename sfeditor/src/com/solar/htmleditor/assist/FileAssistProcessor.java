@@ -90,7 +90,7 @@ public class FileAssistProcessor implements IFileAssistProcessor {
 	
 	
 	private Image getFileImage(String name){
-		if(name.endsWith(".html") || name.endsWith(".htm") || name.endsWith(".shtml")){
+		if(name.endsWith(".xsp") || name.endsWith(".html") || name.endsWith(".htm") || name.endsWith(".shtml")){
 			return HTMLPlugin.getDefault().getImageRegistry().get(HTMLPlugin.ICON_HTML);
 		}
 		if(name.endsWith(".xml") || name.endsWith(".xhtml") || name.equals(".tld")){
