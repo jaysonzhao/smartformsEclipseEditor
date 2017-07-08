@@ -1,10 +1,6 @@
 package com.solar.htmleditor.editors;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -54,11 +50,6 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
@@ -72,13 +63,13 @@ import com.egen.develop.util.jspFormatter.JSPFormatter;
 import com.solar.csseditor.editors.ChooseColorAction;
 import com.solar.htmleditor.ColorProvider;
 import com.solar.htmleditor.FormsPullSelectionDialog;
+import com.solar.htmleditor.FormsPushSelectionDialog;
 import com.solar.htmleditor.HTMLHyperlinkDetector;
 import com.solar.htmleditor.HTMLPlugin;
 import com.solar.htmleditor.HTMLProjectParams;
 import com.solar.htmleditor.HTMLUtil;
 import com.solar.htmleditor.SearchXPathDialog;
 import com.solar.htmleditor.assist.HTMLAssistProcessor;
-import com.solar.htmleditor.assist.SOTFormsSync;
 
 /**
  * HTML source editor.
@@ -841,6 +832,8 @@ public class HTMLSourceEditor extends TextEditor {
 	}
 
 	//Push Forms to Server
+	private static FormsPushSelectionDialog pushDialog;
+	
 		private class FormsPushAction extends Action {
 
 			public FormsPushAction(){
@@ -850,10 +843,10 @@ public class HTMLSourceEditor extends TextEditor {
 			@Override 
 			public void run(){
 			
-				/*if(dialog == null){
-					dialog = new SearchXPathDialog(getEditorSite().getShell());
+				if(pushDialog == null){
+					pushDialog = new FormsPushSelectionDialog(getEditorSite().getShell());
 				}
-				dialog.open();*/
+				pushDialog.open();
 			}
 		}
 

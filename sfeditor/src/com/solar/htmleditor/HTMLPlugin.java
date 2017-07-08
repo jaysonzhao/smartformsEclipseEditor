@@ -54,6 +54,26 @@ public class HTMLPlugin extends AbstractUIPlugin {
 	private ResourceBundle resourceBundle;
 	//Color Provider
 	private ColorProvider colorProvider;
+	
+	//记录下PULL 回来的表单名称和ID用于更新
+	private String formName;
+	public synchronized String getFormName() {
+		return formName;
+	}
+
+	public synchronized void setFormName(String formName) {
+		this.formName = formName;
+	}
+
+	public synchronized String getFormId() {
+		return formId;
+	}
+
+	public synchronized void setFormId(String formId) {
+		this.formId = formId;
+	}
+
+	private String formId;
 
 	public static final String ICON_HTML     = "_icon_html";
 	public static final String ICON_XML      = "_icon_xml";
