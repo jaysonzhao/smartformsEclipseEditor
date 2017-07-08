@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Smartforms Web Editors
 Bundle-SymbolicName: com.solar.htmleditor;singleton=true
-Bundle-Version: 3.1.9.3
+Bundle-Version: 3.1.9.8
 Bundle-Activator: com.solar.htmleditor.HTMLPlugin
 Bundle-Vendor: GZSolartech
 Require-Bundle: org.eclipse.ui,

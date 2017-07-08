@@ -24,6 +24,11 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -675,6 +680,22 @@ public class HTMLPlugin extends AbstractUIPlugin {
 			logException(ex);
 		}
 		return result;
+	}
+
+	public MessageConsole getConsole() {
+		MessageConsole console = null;
+		
+		IConsoleManager consoleManager = null;
+		final String CONSOLE_NAME = "Console";
+		consoleManager = ConsolePlugin.getDefault().getConsoleManager();
+		IConsole[] consoles = consoleManager.getConsoles();
+		if (consoles.length > 0) {
+			console = (MessageConsole) consoles[0];
+		} else {
+			console = new MessageConsole(CONSOLE_NAME, null);
+			consoleManager.addConsoles(new IConsole[] { console });
+		}
+		return console;
 	}
 
 

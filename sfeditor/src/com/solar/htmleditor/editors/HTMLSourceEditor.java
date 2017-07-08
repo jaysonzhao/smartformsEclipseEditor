@@ -71,6 +71,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import com.egen.develop.util.jspFormatter.JSPFormatter;
 import com.solar.csseditor.editors.ChooseColorAction;
 import com.solar.htmleditor.ColorProvider;
+import com.solar.htmleditor.FormsPullSelectionDialog;
 import com.solar.htmleditor.HTMLHyperlinkDetector;
 import com.solar.htmleditor.HTMLPlugin;
 import com.solar.htmleditor.HTMLProjectParams;
@@ -821,6 +822,8 @@ public class HTMLSourceEditor extends TextEditor {
 	//TODO: add dialog and write db methods
 	
 	//Pull Forms from Server
+	private static FormsPullSelectionDialog pullDialog;
+	
 	private class FormsPullAction extends Action {
 
 		public FormsPullAction(){
@@ -829,13 +832,11 @@ public class HTMLSourceEditor extends TextEditor {
 		
 		@Override 
 		public void run(){
-			SOTFormsSync formsync = new SOTFormsSync();
-			formsync.syncForm("test");
 			
-			/*if(dialog == null){
-				dialog = new SearchXPathDialog(getEditorSite().getShell());
+			if(pullDialog == null){
+				pullDialog = new FormsPullSelectionDialog(getEditorSite().getShell());
 			}
-			dialog.open();*/
+			pullDialog.open();
 		}
 	}
 
@@ -848,9 +849,7 @@ public class HTMLSourceEditor extends TextEditor {
 			
 			@Override 
 			public void run(){
-				SOTFormsSync formsync = new SOTFormsSync();
-				formsync.syncForm("test");
-				
+			
 				/*if(dialog == null){
 					dialog = new SearchXPathDialog(getEditorSite().getShell());
 				}
