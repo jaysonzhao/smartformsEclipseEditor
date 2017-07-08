@@ -59,7 +59,8 @@ public class HTMLNewWizard extends Wizard implements INewWizard {
 		}
 		try {
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			IDE.openEditor(page, file, true);
+			IDE.openEditor(page, file, "com.solar.htmleditor.editors.HTMLEditor", true);
+			
 		} catch(PartInitException ex){
 			HTMLPlugin.logException(ex);
 			return false;

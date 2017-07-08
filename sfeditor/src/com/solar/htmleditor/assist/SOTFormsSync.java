@@ -2,12 +2,12 @@ package com.solar.htmleditor.assist;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.Writer;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Calendar;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.console.MessageConsole;
@@ -45,7 +45,7 @@ public class SOTFormsSync {
 	public void updateFormDatabyFormId(String formid, String formdata) {
 		SmartformInfo forms = new SmartformInfo();
 		forms.setFormdata(formdata);
-		String sql = "update DET_FORM_DEFINE set form_Content=? where FORM_ID='" + formid+"'";
+		String sql = "update DET_FORM_DEFINE set form_Content=? , update_time=? where FORM_ID='" + formid+"'";
 		executeQuery(forms, sql, "form_name", "form_id", this.UPDATEFORMSDATA);
 
 	}
@@ -85,6 +85,9 @@ public class SOTFormsSync {
 
 				StringReader clob = new StringReader(apps.getFormdata());
 				pre.setCharacterStream(1, clob, apps.getFormdata().length());
+				Calendar cal = Calendar.getInstance();
+				java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime());
+				pre.setDate(2, sqlDate);
 				pre.executeUpdate();
 				con.commit();
 

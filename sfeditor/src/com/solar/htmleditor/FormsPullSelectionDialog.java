@@ -4,6 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -16,6 +22,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -60,11 +67,35 @@ public class FormsPullSelectionDialog extends Window {
 		Label formlabel = new Label(composite, SWT.NULL);
 		formlabel.setText("FORMs: ");
 		formscombo = new Combo(composite, SWT.NULL);
-		SOTFormsSync formsync = new SOTFormsSync();
-		apps = formsync.getAPPs();
-		 
-	    for(int i=0; i<apps.getNames().size(); i++)
-		      appscombo.add(apps.getNames().get(i));
+		
+		//优化获取应用库为异步
+		Job retrieveJob = new Job("Retrieving APPSData") 
+	    {           
+	        @Override
+	        protected IStatus run(IProgressMonitor monitor) {
+	        	getAppsData();
+	            return Status.OK_STATUS;                
+	        }
+
+			
+	    };
+	    retrieveJob.addJobChangeListener(new JobChangeAdapter() {
+
+	        @Override
+	        public void done(IJobChangeEvent event) {
+	            if(event.getResult().isOK())
+	            {
+	            	 updateAPPSList();
+	            	 
+	            }
+	        }
+
+			       
+	    });
+	    // this will run in a background thread 
+	    // and nicely integrate with the UI
+	    retrieveJob.schedule();
+		
 		
 		  appscombo.addSelectionListener(new SelectionListener() {
 		      public void widgetSelected(SelectionEvent e) {
@@ -158,5 +189,20 @@ public class FormsPullSelectionDialog extends Window {
 		  for(int i=0; i<forms.getNames().size(); i++)
 		      formscombo.add(forms.getNames().get(i));
 	}
+	private void getAppsData() {
+		
+		SOTFormsSync formsync = new SOTFormsSync();
+		apps = formsync.getAPPs();
+		
+	}
+	private void updateAPPSList() {//异步更新APP列表
+		Display.getDefault().syncExec(new Runnable(){
+			public void run() {
+				for(int i=0; i<apps.getNames().size(); i++)
+				      appscombo.add(apps.getNames().get(i));
+			}
+			});
+		
+	}    
 
 }

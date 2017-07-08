@@ -32,7 +32,7 @@ public class HTMLNewWizardPage extends WizardNewFileCreationPage {
 //	private ISelection selection;
 	
 	private static DocType[] docTypes = {
-			new DocType("",null,null),
+			new DocType("SmartForm",null,null),
 			/*new DocType("HTML 4.01 Strict","-//W3C//DTD HTML 4.01//EN","http://www.w3.org/TR/html4/strict.dtd"),
 			new DocType("HTML 4.01 Transitional","-//W3C//DTD HTML 4.01 Transitional//EN","http://www.w3.org/TR/html4/loose.dtd"),
 			new DocType("HTML 4.01 Frameset","-//W3C//DTD HTML 4.01 Frameset//EN","http://www.w3.org/TR/html4/frameset.dtd")*/
@@ -107,7 +107,7 @@ public class HTMLNewWizardPage extends WizardNewFileCreationPage {
 		sb.append("<body>\n");
 		sb.append("</body>\n");
 		sb.append("</html>\n");		*/
-		sb.append("<!--" + HTMLUtil.escapeHTML("请开始表单开发") + " -->\n");
+		sb.append("<!--" + HTMLUtil.escapeHTML("请配置服务器数据库参数后使用右键菜单拉取服务器表单进行开发") + " -->\n");
 		return new ByteArrayInputStream(sb.toString().getBytes());
 	}
 	

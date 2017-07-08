@@ -27,7 +27,7 @@
             class="com.solar.htmleditor.editors.HTMLEditor"
             contributorClass="com.solar.htmleditor.editors.HTMLEditorContributor"
             default="true"
-            extensions="html,xhtml"
+            extensions="xsp,html,xhtml"
             icon="icons/html.png"
             id="com.solar.htmleditor.editors.HTMLEditor"
             name="%plugin.editor.htmleditor"/>

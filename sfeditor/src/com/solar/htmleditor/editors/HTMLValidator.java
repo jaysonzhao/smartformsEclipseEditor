@@ -74,7 +74,7 @@ public class HTMLValidator implements FuzzyXMLErrorListener {
 							+ " sot:span sot:panel sot:btn sot:editor sot:openForm sot:text sot:param sot:sharesubform"
 							+ " sot:list sot:currency sot:dataview sot:query sot:condition sot:columns sot:item"
 							+ " sot:tablev2 sot:theadv2 sot:tbodyv2 sot:tableviewv2 sot:theadviewv2 sot:tbodyviewv2"
-							+ " sot:bpmexecinfo sot:bpmrouting sot:bpmtoolbar sot:bpmtoolpanel sot:bpmnote bpmauditlist sot:wfctrl");
+							+ " sot:bpmexecinfo sot:bpmrouting sot:bpmtoolbar sot:bpmtoolpanel sot:bpmnote sot:bpmauditlist sot:wfctrl");
 					tidy.setConfigurationFromProps(props);
 					tidy.parse(file.getContents(), (OutputStream) null);
 
@@ -90,7 +90,7 @@ public class HTMLValidator implements FuzzyXMLErrorListener {
 							if(matcher.matches()){
 								String message = matcher.group(3);
 								if(message.startsWith("Warning")){
-									HTMLUtil.addMarker(file, IMarker.SEVERITY_WARNING,
+									HTMLUtil.addMarker(file, IMarker.SEVERITY_INFO,
 											Integer.parseInt(matcher.group(1)),
 											matcher.group(3));
 								} else {
