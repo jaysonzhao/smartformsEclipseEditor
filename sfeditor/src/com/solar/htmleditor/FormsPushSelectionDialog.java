@@ -5,6 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,7 +31,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
-import com.solar.htmleditor.assist.SOTFormsSync;
+import com.solar.htmleditor.assist.SmartFormsSync;
 import com.solar.htmleditor.assist.SmartformInfo;
 import com.solar.htmleditor.editors.HTMLSourceEditor;
 import com.solar.htmleditor.views.IPaletteTarget;
@@ -107,11 +114,12 @@ public class FormsPushSelectionDialog extends Window {
 		return null;
 	}
 
+	
 	private void updateFormContent(){
 		MessageConsole console = HTMLPlugin.getDefault().getConsole();
 		final MessageConsoleStream consoleStream = console.newMessageStream();
 		consoleStream.println("forms to push: " + formName+" with id: "+formId);
-		SOTFormsSync formsync = new SOTFormsSync();
+		final SmartFormsSync formsync = new SmartFormsSync(); //used to execute update sql and refresh action
 		HTMLSourceEditor editor = getActiveEditor();
 		if (editor != null) {
 			try {
@@ -122,6 +130,36 @@ public class FormsPushSelectionDialog extends Window {
 				formdata.close();
 				formsync.updateFormDatabyFormId(formId, new String(strBuffer));
 				consoleStream.println("updated form content with form ID: " + formId);
+				//优化获取应用库为异步
+				Job retrieveJob = new Job("Refresing server forms JSP") 
+			    {           
+			        @Override
+			        protected IStatus run(IProgressMonitor monitor) {
+			        	IPreferenceStore store = HTMLPlugin.getDefault().getPreferenceStore();
+			        	if(formsync.exeuteRefreshXSP(store.getString(HTMLPlugin.FORMS_SERVER_URL),store.getString(HTMLPlugin.FORMS_SERVER_DEVUSER),store.getString(HTMLPlugin.FORMS_SERVER_DEVPASS)))
+			        		return Status.OK_STATUS;  
+			        	else return Status.CANCEL_STATUS;
+			        }
+
+					
+			    };
+			    retrieveJob.addJobChangeListener(new JobChangeAdapter() {
+
+			        @Override
+			        public void done(IJobChangeEvent event) {
+			            if(event.getResult().isOK())
+			            {
+			            	consoleStream.println("server forms refreshed");
+			            	 
+			            }
+			        }
+
+					       
+			    });
+			    // this will run in a background thread 
+			    // and nicely integrate with the UI
+			    retrieveJob.schedule();
+				
 			} catch (IOException e) {
 				consoleStream.println(e.getMessage());
 			}

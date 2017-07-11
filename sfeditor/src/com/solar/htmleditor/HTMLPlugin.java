@@ -183,7 +183,9 @@ public class HTMLPlugin extends AbstractUIPlugin {
     public static final String FORMS_SERVER_DB = "_pref_formserver_db";
 	public static final String FORMS_SERVER_DBUSER = "_pref_formserver_user";
 	public static final String FORMS_SERVER_DBPASS = "_pref_formserver_password";
-
+    public static final String FORMS_SERVER_URL = "_pref_formserver_url";
+	public static final String FORMS_SERVER_DEVUSER = "_pref_formserver_devuser";
+	public static final String FORMS_SERVER_DEVPASS = "_pref_formserver_devpassword";
 	public static final String[] SUPPORTED_IMAGE_TYPES = {
 			"gif","png","jpg","jpeg","bmp"
 	};

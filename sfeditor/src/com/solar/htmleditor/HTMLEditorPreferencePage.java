@@ -129,7 +129,7 @@ public class HTMLEditorPreferencePage extends FieldEditorPreferencePage implemen
                parent));
         addField(new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DBUSER, "DB USERNAME:",
                 parent));
-        StringFieldEditor dbpass = new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DBPASS, "DB USERNAME:",
+        StringFieldEditor dbpass = new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DBPASS, "DB PASSWORD:",
                 parent) {
 
         	@Override
@@ -141,6 +141,22 @@ public class HTMLEditorPreferencePage extends FieldEditorPreferencePage implemen
 
         	};
         addField(dbpass);
+        addField(new StringFieldEditor(HTMLPlugin.FORMS_SERVER_URL, "SMARTFORMS APP URL:",
+                parent));
+         addField(new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DEVUSER, "Developer USERNAME:",
+                 parent));
+         StringFieldEditor devpass = new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DEVPASS, "Dveloper Password:",
+                 parent) {
+
+         	@Override
+         	    protected void doFillIntoGrid(Composite parent, int numColumns) {
+         	        super.doFillIntoGrid(parent, numColumns);
+
+         	        getTextControl().setEchoChar('*');
+         	    }
+
+         	};
+         addField(devpass);
 		
 	}
 	

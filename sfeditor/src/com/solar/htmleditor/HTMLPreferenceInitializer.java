@@ -27,6 +27,9 @@ public class HTMLPreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(HTMLPlugin.FORMS_SERVER_DB, "jdbc:oracle:thin:@");
 		store.setDefault(HTMLPlugin.FORMS_SERVER_DBUSER, "username");
 		store.setDefault(HTMLPlugin.FORMS_SERVER_DBPASS, "password");
+		store.setDefault(HTMLPlugin.FORMS_SERVER_URL, "http://oa.gzsolartech.com:7788/smartforms");
+		store.setDefault(HTMLPlugin.FORMS_SERVER_DEVUSER, "devusername");
+		store.setDefault(HTMLPlugin.FORMS_SERVER_DEVPASS, "password");
 		store.setDefault(HTMLPlugin.PREF_DTD_URI, "");
 		store.setDefault(HTMLPlugin.PREF_DTD_PATH, "");
 		store.setDefault(HTMLPlugin.PREF_DTD_CACHE, true);

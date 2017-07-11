@@ -19,5 +19,48 @@
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="restclientlib/hk2-api-2.5.0-b36.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javassist-3.20.0-GA.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.annotation-api-1.2.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.inject-2.5.0-b36.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.json-1.1.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.json-api-1.1.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.json.bind-api-1.0.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="restclientlib/javax.ws.rs-api-2.1-m09.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jaxb-api-2.2.7.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-client.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-common.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-container-servlet-core.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-container-servlet.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-hk2.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-media-jaxb.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-media-json-binding.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-media-sse.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-server.jar"/>
+	<classpathentry kind="lib" path="restclientlib/httpclient-4.5.3.jar"/>
+	<classpathentry kind="lib" path="restclientlib/httpclient-cache-4.5.3.jar"/>
+	<classpathentry kind="lib" path="restclientlib/httpclient-win-4.5.3.jar"/>
+	<classpathentry kind="lib" path="restclientlib/httpcore-4.4.6.jar"/>
+	<classpathentry kind="lib" path="restclientlib/httpmime-4.5.3.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jersey-apache-connector-2.26-b07.jar"/>
+	<classpathentry kind="lib" path="restclientlib/aopalliance-repackaged-2.5.0-b36.jar"/>
+	<classpathentry kind="lib" path="restclientlib/cdi-api-1.1.jar"/>
+	<classpathentry kind="lib" path="restclientlib/el-api-2.2.jar"/>
+	<classpathentry kind="lib" path="restclientlib/hk2-locator-2.5.0-b36.jar"/>
+	<classpathentry kind="lib" path="restclientlib/hk2-utils-2.5.0-b36.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jsr250-api-1.0.jar"/>
+	<classpathentry kind="lib" path="restclientlib/org.osgi.core-4.2.0.jar"/>
+	<classpathentry kind="lib" path="restclientlib/osgi-resource-locator-1.0.1.jar"/>
+	<classpathentry kind="lib" path="restclientlib/persistence-api-1.0.jar"/>
+	<classpathentry kind="lib" path="restclientlib/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="restclientlib/yasson-1.0.jar"/>
+	<classpathentry kind="lib" path="restclientlib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="restclientlib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="restclientlib/fluent-hc-4.5.3.jar"/>
+	<classpathentry kind="lib" path="restclientlib/jna-platform-4.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Smartforms Web Editors
 Bundle-SymbolicName: com.solar.htmleditor;singleton=true
-Bundle-Version: 3.2.1
+Bundle-Version: 3.2.5
 Bundle-Activator: com.solar.htmleditor.HTMLPlugin
 Bundle-Vendor: GZSolartech
 Require-Bundle: org.eclipse.ui,
@@ -23,7 +23,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.launching,
  org.eclipse.help,
  org.eclipse.ui.console
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.solar.csseditor.editors,
  com.solar.dtdeditor.editors,
@@ -66,4 +66,47 @@ Bundle-ClassPath: .,
  lib/xercesImpl.jar,
  lib/xml-apis.jar,
  lib/js.jar,
- lib/ojdbc6.jar
+ lib/ojdbc6.jar,
+ restclientlib/aopalliance-repackaged-2.5.0-b36.jar,
+ restclientlib/cdi-api-1.1.jar,
+ restclientlib/commons-codec-1.9.jar,
+ restclientlib/commons-logging-1.2.jar,
+ restclientlib/el-api-2.2.jar,
+ restclientlib/fluent-hc-4.5.3.jar,
+ restclientlib/hk2-api-2.5.0-b36.jar,
+ restclientlib/hk2-locator-2.5.0-b36.jar,
+ restclientlib/hk2-utils-2.5.0-b36.jar,
+ restclientlib/httpclient-4.5.3.jar,
+ restclientlib/httpclient-cache-4.5.3.jar,
+ restclientlib/httpclient-win-4.5.3.jar,
+ restclientlib/httpcore-4.4.6.jar,
+ restclientlib/httpmime-4.5.3.jar,
+ restclientlib/javassist-3.20.0-GA.jar,
+ restclientlib/javax.annotation-api-1.2.jar,
+ restclientlib/javax.inject-1.jar,
+ restclientlib/javax.inject-2.5.0-b36.jar,
+ restclientlib/javax.json-1.1.jar,
+ restclientlib/javax.json-api-1.1.jar,
+ restclientlib/javax.json.bind-api-1.0.jar,
+ restclientlib/javax.servlet-api-3.0.1.jar,
+ restclientlib/javax.ws.rs-api-2.1-m09.jar,
+ restclientlib/jaxb-api-2.2.7.jar,
+ restclientlib/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar,
+ restclientlib/jersey-apache-connector-2.26-b07.jar,
+ restclientlib/jersey-client.jar,
+ restclientlib/jersey-common.jar,
+ restclientlib/jersey-container-servlet-core.jar,
+ restclientlib/jersey-container-servlet.jar,
+ restclientlib/jersey-hk2.jar,
+ restclientlib/jersey-media-jaxb.jar,
+ restclientlib/jersey-media-json-binding.jar,
+ restclientlib/jersey-media-sse.jar,
+ restclientlib/jersey-server.jar,
+ restclientlib/jna-4.1.0.jar,
+ restclientlib/jna-platform-4.1.0.jar,
+ restclientlib/jsr250-api-1.0.jar,
+ restclientlib/org.osgi.core-4.2.0.jar,
+ restclientlib/osgi-resource-locator-1.0.1.jar,
+ restclientlib/persistence-api-1.0.jar,
+ restclientlib/validation-api-1.1.0.Final.jar,
+ restclientlib/yasson-1.0.jar

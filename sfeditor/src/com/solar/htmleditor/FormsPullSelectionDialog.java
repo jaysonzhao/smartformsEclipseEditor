@@ -30,7 +30,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
-import com.solar.htmleditor.assist.SOTFormsSync;
+import com.solar.htmleditor.assist.SmartFormsSync;
 import com.solar.htmleditor.assist.SmartformInfo;
 import com.solar.htmleditor.editors.HTMLSourceEditor;
 import com.solar.htmleditor.views.IPaletteTarget;
@@ -146,7 +146,7 @@ public class FormsPullSelectionDialog extends Window {
 
 	private void updateFormContent(){
 		status.setText("forms selected:" + formscombo.getText());
-		SOTFormsSync formsync = new SOTFormsSync();
+		SmartFormsSync formsync = new SmartFormsSync();
 		formdata = formsync.getFormDatabyFormId(forms.getIds().get(formscombo.getSelectionIndex()));
 		HTMLSourceEditor editor = getActiveEditor();
 		if(editor != null){
@@ -184,14 +184,14 @@ public class FormsPullSelectionDialog extends Window {
 	}
 
 	private void setFormsList() {
-		SOTFormsSync formsync = new SOTFormsSync();
+		SmartFormsSync formsync = new SmartFormsSync();
 		forms = formsync.getFormbyAPPId(apps.getIds().get(appscombo.getSelectionIndex()));
 		  for(int i=0; i<forms.getNames().size(); i++)
 		      formscombo.add(forms.getNames().get(i));
 	}
 	private void getAppsData() {
 		
-		SOTFormsSync formsync = new SOTFormsSync();
+		SmartFormsSync formsync = new SmartFormsSync();
 		apps = formsync.getAPPs();
 		
 	}
