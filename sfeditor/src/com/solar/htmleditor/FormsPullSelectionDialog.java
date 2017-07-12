@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
@@ -64,10 +65,16 @@ public class FormsPullSelectionDialog extends Window {
 		Label label = new Label(composite, SWT.NULL);
 		label.setText("APP: ");
 		appscombo = new Combo(composite, SWT.NULL);
+		
 		Label formlabel = new Label(composite, SWT.NULL);
 		formlabel.setText("FORMs: ");
 		formscombo = new Combo(composite, SWT.NULL);
-		
+		appscombo.add("Loading......");
+		appscombo.select(0);
+		formscombo.add("Loading......");
+		formscombo.select(0);
+		appscombo.setSize(new Point(200,200));
+		formscombo.setSize(new Point(200,200));
 		//优化获取应用库为异步
 		Job retrieveJob = new Job("Retrieving APPSData") 
 	    {           
@@ -156,6 +163,8 @@ public class FormsPullSelectionDialog extends Window {
 				update.write(formdata.getFormdata().getBytes());
 				update.flush();
 				update.close();
+				editor.doSave(new NullProgressMonitor());
+				editor.setFocus();
 				status.setText("pull success with Form name:"+formscombo.getText());
 				HTMLPlugin.getDefault().setFormId(forms.getIds().get(formscombo.getSelectionIndex()));
 				HTMLPlugin.getDefault().setFormName(forms.getNames().get(formscombo.getSelectionIndex()));
@@ -186,8 +195,10 @@ public class FormsPullSelectionDialog extends Window {
 	private void setFormsList() {
 		SmartFormsSync formsync = new SmartFormsSync();
 		forms = formsync.getFormbyAPPId(apps.getIds().get(appscombo.getSelectionIndex()));
+		formscombo.removeAll();
 		  for(int i=0; i<forms.getNames().size(); i++)
 		      formscombo.add(forms.getNames().get(i));
+		  formscombo.setSize(new Point(200,200));
 	}
 	private void getAppsData() {
 		
@@ -198,8 +209,10 @@ public class FormsPullSelectionDialog extends Window {
 	private void updateAPPSList() {//异步更新APP列表
 		Display.getDefault().syncExec(new Runnable(){
 			public void run() {
+				appscombo.removeAll();
 				for(int i=0; i<apps.getNames().size(); i++)
 				      appscombo.add(apps.getNames().get(i));
+				appscombo.setSize(new Point(200,200));
 			}
 			});
 		
