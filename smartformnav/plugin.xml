@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension
+         point="org.eclipse.ui.views">
+      <category
+            id="com.solar.smartformsnav"
+            name="Smartforms Navigator">
+      </category>
+      <view
+            allowMultiple="false"
+            class="org.eclipse.ui.navigator.CommonNavigator"
+            icon="icons/filenav_nav.gif"
+            id="com.solar.smartformsnav.nrview"
+            name="Smartforms Viewer"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewer viewerId="com.solar.smartformsnav.nrview"/>
+      <viewerContentBinding viewerId="com.solar.smartformsnav.nrview">
+         <includes>
+            <contentExtension pattern="org.eclipse.ui.navigator.resourceContent"/>
+            <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/> 
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="com.solar.smartformsnav.nrview">
+         <includes>
+            <actionExtension pattern="org.eclipse.ui.navigator.resources.*"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="com.solar.smartformsnav.NRContentProvider"
+            id="com.solar.smartformsnav.navigatorContent1"
+            labelProvider="com.solar.smartformsnav.NRLabelProvider"
+            name="NR Content">
+         <triggerPoints>
+            <or>
+               <instanceof value="org.eclipse.core.resources.IProject"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof value="com.solar.smartformsnav.NRParent"/>
+            </or>
+         </possibleChildren>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding viewerId="com.solar.smartformsnav.nrview">
+         <includes>
+            <contentExtension
+                  isRoot="false"
+                  pattern="com.solar.smartformsnav.navigatorContent1"/>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+</plugin>

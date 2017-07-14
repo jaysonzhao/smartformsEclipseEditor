@@ -27,7 +27,7 @@
             class="com.solar.htmleditor.editors.HTMLEditor"
             contributorClass="com.solar.htmleditor.editors.HTMLEditorContributor"
             default="true"
-            extensions="xsp,html,xhtml"
+            extensions="xsp"
             icon="icons/html.png"
             id="com.solar.htmleditor.editors.HTMLEditor"
             name="%plugin.editor.htmleditor"/>
@@ -648,13 +648,6 @@ while (${condition}) {
             sequence="CTRL+SHIFT+F"/>
    </extension>
    -->
-   <extension
-         point="org.eclipse.help.toc">
-      <toc
-            file="toc.xml"
-            primary="true">
-      </toc>
-   </extension>
 
    <!--====================================================-->
    <!-- JavaScript Completers -->
