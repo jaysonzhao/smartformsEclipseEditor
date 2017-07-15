@@ -45,8 +45,15 @@
          <possibleChildren>
             <or>
                <instanceof value="com.solar.smartformsnav.NRParent"/>
+                <instanceof value="com.solar.smartformsnav.navpart.APPNav"/>
+                 <instanceof value="com.solar.smartformsnav.navpart.FormsNav"/>
+                  <instanceof value="com.solar.smartformsnav.navpart.FormPartNav"/>
+                  <instanceof value="com.solar.smartformsnav.navpart.FormListNav"/>
             </or>
          </possibleChildren>
+         <actionProvider
+               class="com.solar.smartformsnav.PropertyActionProvider"
+               id="com.solar.smartformsnav.formslistaction"/>
       </navigatorContent>
    </extension>
    <extension

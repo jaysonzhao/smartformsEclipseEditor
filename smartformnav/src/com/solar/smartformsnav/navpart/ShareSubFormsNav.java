@@ -2,7 +2,7 @@
  * Created on Jul 13, 2006
  *
  */
-package com.solar.smartformsnav;
+package com.solar.smartformsnav.navpart;
 
 /**
  * 
@@ -10,7 +10,7 @@ package com.solar.smartformsnav;
  * 
  * @author Aashish Patil(patil_aashish@emc.com)
  */
-public class SubFormsNav extends FormsNav
+public class ShareSubFormsNav extends FormsNav
 {
     private String name = null;
     public synchronized String getSid() {
@@ -24,14 +24,14 @@ public class SubFormsNav extends FormsNav
 	private String sid = null;
     
     
-    public SubFormsNav(String name)
+    public ShareSubFormsNav(String name)
     {
     	super(name);
     	this.name=name;
        
     }
     
-    public SubFormsNav(String name, String sid)
+    public ShareSubFormsNav(String name, String sid)
     {
         super(name,sid);
         this.name=name;

@@ -2,13 +2,13 @@
  * Created on Jul 13, 2006
  *
  */
-package com.solar.smartformsnav;
+package com.solar.smartformsnav.navpart;
 
 /**
  * 
+ * 表单列表的ELEMENT
  * 
- * 
- * @author Aashish Patil(patil_aashish@emc.com)
+ * @author Jayson
  */
 public class FormListNav
 {

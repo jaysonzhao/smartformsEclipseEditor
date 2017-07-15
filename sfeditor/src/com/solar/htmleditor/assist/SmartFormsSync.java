@@ -42,21 +42,21 @@ public class SmartFormsSync {
 	public SmartformInfo getAPPs() {
 		SmartformInfo apps = new SmartformInfo();
 		String sql = "select * from  DAT_APPLICATION";
-		executeQuery(apps, sql, "app_Name", "app_Id", this.GETAPPORFORMS);
+		executeQuery(apps, sql, "app_Name", "app_Id","app_title", SmartFormsSync.GETAPPORFORMS);
 		return apps;
 	}
 
 	public SmartformInfo getFormbyAPPId(String appid) {
 		SmartformInfo forms = new SmartformInfo();
 		String sql = "select * from DET_FORM_DEFINE where APP_ID='" + appid + "'";
-		executeQuery(forms, sql, "form_name", "form_id", this.GETAPPORFORMS);
+		executeQuery(forms, sql, "form_name", "form_id","form_title", SmartFormsSync.GETAPPORFORMS);
 		return forms;
 	}
 
 	public SmartformInfo getFormDatabyFormId(String formid) {
 		SmartformInfo forms = new SmartformInfo();
 		String sql = "select * from DET_FORM_DEFINE where FORM_ID='" + formid + "'";
-		executeQuery(forms, sql, "form_name", "form_id", this.GETFORMSDATA);
+		executeQuery(forms, sql, "form_name", "form_id","form_title", SmartFormsSync.GETFORMSDATA);
 		return forms;
 	}
 
@@ -64,11 +64,11 @@ public class SmartFormsSync {
 		SmartformInfo forms = new SmartformInfo();
 		forms.setFormdata(formdata);
 		String sql = "update DET_FORM_DEFINE set form_Content=? , update_time=? where FORM_ID='" + formid+"'";
-		executeQuery(forms, sql, "form_name", "form_id", this.UPDATEFORMSDATA);
+		executeQuery(forms, sql, "form_name", "form_id","form_title", SmartFormsSync.UPDATEFORMSDATA);
 
 	}
 
-	private void executeQuery(SmartformInfo apps, String sql, String namefield, String idfield, String actionType) {
+	private void executeQuery(SmartformInfo apps, String sql, String namefield, String idfield, String descfield, String actionType) {
 		MessageConsole console = HTMLPlugin.getDefault().getConsole();
 		MessageConsoleStream consoleStream = console.newMessageStream();
 		IPreferenceStore store = HTMLPlugin.getDefault().getPreferenceStore();
@@ -112,12 +112,16 @@ public class SmartFormsSync {
 			} else {//处理查询类的操作
 				result = pre.executeQuery();// 执行查询，注意括号中不需要再加参数
 				while (result.next()) {
-					if (this.GETAPPORFORMS.equals(actionType)) {
-						apps.getNames().add(result.getString(namefield));
+					if (SmartFormsSync.GETAPPORFORMS.equals(actionType)) {
+						String name = result.getString(descfield).equals("")?result.getString(namefield):result.getString(descfield);
+						//System.out.println(name);
+						apps.getNames().add(name);
 						apps.getIds().add(result.getString(idfield));
 					}
 
-					if (this.GETFORMSDATA.equals(actionType)) { // 处理获取表单体
+					if (SmartFormsSync.GETFORMSDATA.equals(actionType)) { // 处理获取表单体
+						String name = result.getString(descfield).equals("")?result.getString(namefield):result.getString(descfield);
+						apps.getNames().add(name);
 						Clob clob = result.getClob("form_content");
 						Reader inStream = clob.getCharacterStream();
 						char[] c = new char[(int) clob.length()];
@@ -129,7 +133,7 @@ public class SmartFormsSync {
 				}
 			}
 		} catch (Exception e) {
-			consoleStream.println(e.getMessage());
+			consoleStream.println(e.getLocalizedMessage());
 			consoleStream.println("数据库连接错误请先配置smarforms 参数页");
 
 		} finally {

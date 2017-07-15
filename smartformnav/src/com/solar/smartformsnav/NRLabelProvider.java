@@ -10,6 +10,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
+import com.solar.smartformsnav.navpart.APPNav;
+import com.solar.smartformsnav.navpart.FormListNav;
+import com.solar.smartformsnav.navpart.FormPartNav;
+import com.solar.smartformsnav.navpart.FormsNav;
+import com.solar.smartformsnav.navpart.SubFormsNav;
+
 
 /**
  * 
@@ -36,8 +42,8 @@ public class NRLabelProvider implements ILabelProvider
         	FormsNav child = (FormsNav) element;
         	return child.getName();
         }        	
-        else if(element instanceof SubFormsNav){
-        	SubFormsNav child = (SubFormsNav) element;
+        else if(element instanceof FormPartNav){
+        	FormPartNav child = (FormPartNav) element;
         	return child.getName();
         }  
         else if(element instanceof FormListNav){
@@ -64,9 +70,9 @@ public class NRLabelProvider implements ILabelProvider
     	if(element instanceof FormsNav)
        		return PlatformUI.getWorkbench().getSharedImages().getImage(
 					ISharedImages.IMG_OBJ_FOLDER); 
-    	if(element instanceof SubFormsNav)
+    	if(element instanceof FormPartNav)
        		return PlatformUI.getWorkbench().getSharedImages().getImage(
-					ISharedImages.IMG_OBJ_FOLDER); 
+					ISharedImages.IMG_OBJ_ELEMENT); 
     	if(element instanceof FormListNav)
        		return PlatformUI.getWorkbench().getSharedImages().getImage(
 					ISharedImages.IMG_OBJ_FILE); 

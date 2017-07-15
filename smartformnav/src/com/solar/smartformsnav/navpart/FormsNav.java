@@ -2,7 +2,7 @@
  * Created on Jul 13, 2006
  *
  */
-package com.solar.smartformsnav;
+package com.solar.smartformsnav.navpart;
 
 /**
  * 

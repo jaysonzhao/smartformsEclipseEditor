@@ -13,6 +13,15 @@ import org.eclipse.jface.viewers.Viewer;
 
 import com.solar.htmleditor.assist.SmartFormsSync;
 import com.solar.htmleditor.assist.SmartformInfo;
+import com.solar.smartformsnav.navpart.APPNav;
+import com.solar.smartformsnav.navpart.FormBodyNav;
+import com.solar.smartformsnav.navpart.FormHeadNav;
+import com.solar.smartformsnav.navpart.FormListNav;
+import com.solar.smartformsnav.navpart.FormPartNav;
+import com.solar.smartformsnav.navpart.FormsNav;
+import com.solar.smartformsnav.navpart.MainFormsNav;
+import com.solar.smartformsnav.navpart.ShareSubFormsNav;
+import com.solar.smartformsnav.navpart.SubFormsNav;
 /**
  * 
  * 
@@ -45,21 +54,32 @@ public class NRContentProvider implements ITreeContentProvider
         }
         else if(parentElement instanceof APPNav)
         {
-            FormsNav[] children = new FormsNav[2];
-            children[0] = new FormsNav("表单", ((APPNav) parentElement).getSid());
+            FormsNav[] children = new FormsNav[3];
+            children[0] = new MainFormsNav("表单", ((APPNav) parentElement).getSid());
             children[1] = new SubFormsNav("子表单", ((APPNav) parentElement).getSid());
+            children[2] = new ShareSubFormsNav("共享子表单", ((APPNav) parentElement).getSid());
             return children;
         }
-        else if(parentElement instanceof FormsNav)
-        {
-        	
-        	FormsNav parent = (FormsNav) parentElement;
+        else if(parentElement instanceof MainFormsNav){
+        	MainFormsNav parent = (MainFormsNav) parentElement;
             SmartFormsSync formsync = new SmartFormsSync();
             SmartformInfo forms = formsync.getFormbyAPPId(parent.getSid());
     		FormListNav[] children = new FormListNav[forms.getNames().size()];
     		for(int i=0; i<forms.getNames().size(); i++)
     			children[i] = new FormListNav(forms.getNames().get(i), forms.getIds().get(i));
                     
+            return children;
+        	
+        }
+        else if(parentElement instanceof FormListNav)
+        {
+        	
+        	FormListNav parent = (FormListNav) parentElement;
+            FormPartNav[] children = new FormPartNav[2];
+            children[0] = new FormHeadNav("表单头", parent.getSid());
+            children[1] = new FormBodyNav("表单体", parent.getSid());
+            
+    	
             return children;
         }
         else

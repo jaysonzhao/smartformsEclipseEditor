@@ -33,6 +33,9 @@ import com.solar.htmleditor.assist.SmartFormsSync;
 import com.solar.htmleditor.assist.SmartformInfo;
 import com.solar.htmleditor.editors.HTMLSourceEditor;
 import com.solar.htmleditor.views.IPaletteTarget;
+import com.solar.smartformsnav.navpart.FormBodyNav;
+import com.solar.smartformsnav.navpart.FormHeadNav;
+import com.solar.smartformsnav.navpart.FormPartNav;
 
 /**
  * @since 3.2
@@ -68,9 +71,34 @@ public class OpenPropertyAction extends Action {
 		ISelection selection = provider.getSelection();
 		if (!selection.isEmpty()) {
 			IStructuredSelection sSelection = (IStructuredSelection) selection;
-			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormListNav) {
-				formName = ((FormListNav) sSelection.getFirstElement()).getName();
-				formId = ((FormListNav) sSelection.getFirstElement()).getSid();
+			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormPartNav) {
+				
+				formName = ((FormPartNav) sSelection.getFirstElement()).getName();
+				formId = ((FormPartNav) sSelection.getFirstElement()).getSid();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isHead() {
+		ISelection selection = provider.getSelection();
+		if (!selection.isEmpty()) {
+			IStructuredSelection sSelection = (IStructuredSelection) selection;
+			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormHeadNav) {
+			
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isBody() {
+		ISelection selection = provider.getSelection();
+		if (!selection.isEmpty()) {
+			IStructuredSelection sSelection = (IStructuredSelection) selection;
+			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormBodyNav) {
+			
 				return true;
 			}
 		}
@@ -99,10 +127,11 @@ public class OpenPropertyAction extends Action {
 		 */
 
 		try {
-			if (isEnabled()) {
+			if (isEnabled()&&isBody()) {
 				// System.out.println(formId);
 				SmartFormsSync formsync = new SmartFormsSync();
 				SmartformInfo formdata = formsync.getFormDatabyFormId(formId);
+				
 				HTMLSourceEditor editor = getActiveEditor();
 				if (editor != null) {
 					try {
@@ -113,7 +142,7 @@ public class OpenPropertyAction extends Action {
 						editor.doSave(new NullProgressMonitor());
 						editor.setFocus();
 						HTMLPlugin.getDefault().setFormId(formId);
-						HTMLPlugin.getDefault().setFormName(formName);
+						HTMLPlugin.getDefault().setFormName(formdata.getNames().get(0));
 					} catch (FileNotFoundException e) {
 						Activator.logError(0, "Form not pull!", e);
 					} catch (IOException e) {
