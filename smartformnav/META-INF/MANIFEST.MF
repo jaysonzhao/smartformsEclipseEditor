@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: smartformsnav Plug-in
+Bundle-SymbolicName: smartformsnav;singleton:=true
+Bundle-Version: 2.0.0
+Bundle-Activator: com.solar.smartformsnav.Activator
+Bundle-Vendor: gzsolartech
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.navigator,
+ org.eclipse.core.resources,
+ org.eclipse.ui.views,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.workbench,
+  org.eclipse.ui.editors,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.jface.text
+Eclipse-LazyStart: true
+Import-Package: com.solar.htmleditor,
+ com.solar.htmleditor.assist,
+ com.solar.htmleditor.editors,
+ com.solar.htmleditor.views,
+ org.eclipse.ui.console

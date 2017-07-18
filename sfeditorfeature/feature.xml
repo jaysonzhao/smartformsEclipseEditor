@@ -2,15 +2,15 @@
 <feature
       id="com.solar.htmleditor.feature"
       label="Smartforms HTML Editor"
-      version="3.2.5"
+      version="3.3"
       provider-name="GZSolartech">
 
    <description url="http://www.example.com/description">
-       Licensed by GZSolartech.
+      Licensed by GZSolartech.
    </description>
 
    <copyright url="http://www.example.com/copyright">
-       Licensed by GZSolartech.
+      Licensed by GZSolartech.
    </copyright>
 
    <license url="http://www.example.com/license">
@@ -21,7 +21,14 @@
          id="com.solar.htmleditor"
          download-size="0"
          install-size="0"
-         version="3.2.5"
+         version="3.3.0"
+         unpack="false"/>
+
+   <plugin
+         id="smartformsnav"
+         download-size="0"
+         install-size="0"
+         version="2.0.0"
          unpack="false"/>
 
 </feature>

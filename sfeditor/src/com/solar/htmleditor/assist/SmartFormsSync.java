@@ -35,40 +35,124 @@ import com.solar.htmleditor.HTMLPlugin;
 
 public class SmartFormsSync {
 
-	public static final String GETAPPORFORMS = "_get_apps";
+	public static final String GETAPPORFORMS = "_get_appsorforms";
 	public static final String GETFORMSDATA = "_get_formsdata";
+	public static final String GETFORMSHEAD = "_get_formshead";
+	public static final String GETSUBFORMSDATA = "_get_subformsdata";
+	public static final String GETSUBFORMSHEAD = "_get_subformshead";
+	public static final String GETSHARESUBFORMSDATA = "_get_sharesubformsdata";
+	public static final String GETSHARESUBFORMSHEAD = "_get_sharesubformshead";
 	public static final String UPDATEFORMSDATA = "_update_formsdata";
+	public static final String UPDATEFORMSHEAD = "_update_formshead";
+	public static final String UPDATESUBFORMSDATA = "_update_subformsdata";
+	public static final String UPDATESUBFORMSHEAD = "_update_subformshead";
+	public static final String UPDATESHARESUBFORMSDATA = "_update_sharesubformsdata";
+	public static final String UPDATESHARESUBFORMSHEAD = "_update_sharesubformshead";
+	
 
-	public SmartformInfo getAPPs() {
+	public SmartformInfo getAPPs() {//获得应用库列表
 		SmartformInfo apps = new SmartformInfo();
 		String sql = "select * from  DAT_APPLICATION";
-		executeQuery(apps, sql, "app_Name", "app_Id", this.GETAPPORFORMS);
+		executeQuery(apps, sql, "app_Name", "app_Id","app_title",null, SmartFormsSync.GETAPPORFORMS);
 		return apps;
 	}
 
-	public SmartformInfo getFormbyAPPId(String appid) {
+	public SmartformInfo getFormbyAPPId(String appid) {//获得应用库下的表单列表
 		SmartformInfo forms = new SmartformInfo();
 		String sql = "select * from DET_FORM_DEFINE where APP_ID='" + appid + "'";
-		executeQuery(forms, sql, "form_name", "form_id", this.GETAPPORFORMS);
+		executeQuery(forms, sql, "form_name", "form_id","form_title",null, SmartFormsSync.GETAPPORFORMS);
+		return forms;
+	}
+	
+	public SmartformInfo getSubFormbyAPPId(String appid) {//获得应用库下的子表单列表
+		SmartformInfo forms = new SmartformInfo();
+		String sql = "select * from DET_SUBFORM_DEFINE where APP_ID='" + appid + "'";
+		executeQuery(forms, sql, "subform_name", "subform_id","description",null, SmartFormsSync.GETAPPORFORMS);
+		return forms;
+	}
+	
+	public SmartformInfo getShareSubForm() {//获得共享子表单列表
+		SmartformInfo forms = new SmartformInfo();
+		String sql = "select * from DET_SHARE_SUBFORM_DEFINE";
+		executeQuery(forms, sql, "subform_name", "subform_id","description",null, SmartFormsSync.GETAPPORFORMS);
 		return forms;
 	}
 
-	public SmartformInfo getFormDatabyFormId(String formid) {
+	public SmartformInfo getFormDatabyFormId(String formid) {//获得表单体
 		SmartformInfo forms = new SmartformInfo();
 		String sql = "select * from DET_FORM_DEFINE where FORM_ID='" + formid + "'";
-		executeQuery(forms, sql, "form_name", "form_id", this.GETFORMSDATA);
+		executeQuery(forms, sql, "form_name", "form_id","form_title","form_content", SmartFormsSync.GETFORMSDATA);
+		return forms;
+	}
+	
+	public SmartformInfo getFormHeadbyFormId(String formid) {//获得表单体
+		SmartformInfo forms = new SmartformInfo();
+		String sql = "select * from DET_FORM_DEFINE where FORM_ID='" + formid + "'";
+		executeQuery(forms, sql, "form_name", "form_id","form_title","html_head", SmartFormsSync.GETFORMSDATA);
+		return forms;
+	}
+	
+	public SmartformInfo getSubFormDatabyFormId(String formid) {//获得子表单体
+		SmartformInfo forms = new SmartformInfo();
+		String sql = "select * from DET_SUBFORM_DEFINE where FORM_ID='" + formid + "'";
+		executeQuery(forms, sql, "subform_name", "subform_id","description","subform_content", SmartFormsSync.GETFORMSDATA);
+		return forms;
+	}
+	
+	public SmartformInfo getShareSubFormDatabyFormId(String formid) {//获得共享子表单体
+		SmartformInfo forms = new SmartformInfo();
+		String sql = "select * from DET_SHARE_SUBFORM_DEFINE where FORM_ID='" + formid + "'";
+		executeQuery(forms, sql, "subform_name", "subform_id","description","subform_content", SmartFormsSync.GETFORMSDATA);
 		return forms;
 	}
 
-	public void updateFormDatabyFormId(String formid, String formdata) {
+	public void updateFormDatabyFormId(String formid, String formdata) {//更新表单体
 		SmartformInfo forms = new SmartformInfo();
 		forms.setFormdata(formdata);
 		String sql = "update DET_FORM_DEFINE set form_Content=? , update_time=? where FORM_ID='" + formid+"'";
-		executeQuery(forms, sql, "form_name", "form_id", this.UPDATEFORMSDATA);
+		executeQuery(forms, sql, "form_name", "form_id","form_title","form_content", SmartFormsSync.UPDATEFORMSDATA);
 
 	}
+	public void updateFormHeadbyFormId(String formid, String formdata) {//更新表单体
+		SmartformInfo forms = new SmartformInfo();
+		forms.setFormdata(formdata);
+		String sql = "update DET_FORM_DEFINE set html_head=? , update_time=? where FORM_ID='" + formid+"'";
+		executeQuery(forms, sql, "form_name", "form_id","form_title","html_head", SmartFormsSync.UPDATEFORMSDATA);
 
-	private void executeQuery(SmartformInfo apps, String sql, String namefield, String idfield, String actionType) {
+	}
+	public void updateShareSubFormDatabyFormId(String formid, String formdata) {
+		SmartformInfo forms = new SmartformInfo();
+		forms.setFormdata(formdata);
+		String sql = "update DET_SHARE_SUBFORM_DEFINE set subform_Content=? , update_time=? where SUBFORM_ID='" + formid+"'";
+		executeQuery(forms, sql, "subform_name", "subform_id","subform_title","subform_content", SmartFormsSync.UPDATEFORMSDATA);
+		
+	}
+
+	public void updateSubFormDatabyFormId(String formid, String formdata) {
+		SmartformInfo forms = new SmartformInfo();
+		forms.setFormdata(formdata);
+		String sql = "update DET_SUBFORM_DEFINE set subform_Content=? , update_time=? where SUBFORM_ID='" + formid+"'";
+		executeQuery(forms, sql, "subform_name", "subform_id","subform_title","subform_content", SmartFormsSync.UPDATEFORMSDATA);
+		
+	}
+	
+	public SmartformInfo getSubFormDatabyId(String formid) {
+		SmartformInfo forms = new SmartformInfo();
+		String sql = "select * from DET_SUBFORM_DEFINE where SUBFORM_ID='" + formid + "'";
+		executeQuery(forms, sql, "subform_name", "subform_id","description","subform_content", SmartFormsSync.GETFORMSDATA);
+		return forms;
+	
+	}
+
+	public SmartformInfo getShareSubFormDatabyId(String formid) {
+		SmartformInfo forms = new SmartformInfo();
+		String sql = "select * from DET_SHARE_SUBFORM_DEFINE where SUBFORM_ID='" + formid + "'";
+		executeQuery(forms, sql, "subform_name", "subform_id","description","subform_content", SmartFormsSync.GETFORMSDATA);
+		return forms;
+	
+	}
+
+	private void executeQuery(SmartformInfo apps, String sql, String namefield, String idfield, String descfield, String clobfield, String actionType) {
 		MessageConsole console = HTMLPlugin.getDefault().getConsole();
 		MessageConsoleStream consoleStream = console.newMessageStream();
 		IPreferenceStore store = HTMLPlugin.getDefault().getPreferenceStore();
@@ -93,7 +177,7 @@ public class SmartFormsSync {
 			con.setAutoCommit(false);
 			// consoleStream.println("连接成功！");
 			pre = con.prepareStatement(sql);// 实例化预编译语句
-			if (this.UPDATEFORMSDATA.equals(actionType)) { // 处理更新表单体
+			if (SmartFormsSync.UPDATEFORMSDATA.equals(actionType)) { // 处理更新表单体
 				/*
 				 * Clob clob = result.getClob("form_content"); Writer outStream
 				 * = clob.setCharacterStream(0); char[] c =
@@ -112,13 +196,23 @@ public class SmartFormsSync {
 			} else {//处理查询类的操作
 				result = pre.executeQuery();// 执行查询，注意括号中不需要再加参数
 				while (result.next()) {
-					if (this.GETAPPORFORMS.equals(actionType)) {
-						apps.getNames().add(result.getString(namefield));
+					String name=null;
+					if(result.getString(descfield)!=null){
+						if(!result.getString(descfield).equals(""))
+					        name = result.getString(descfield);
+					}else name=result.getString(namefield);
+					
+					if (SmartFormsSync.GETAPPORFORMS.equals(actionType)) {//处理查询列表类
+						
+						//System.out.println(name);
+						apps.getNames().add(name);
 						apps.getIds().add(result.getString(idfield));
 					}
 
-					if (this.GETFORMSDATA.equals(actionType)) { // 处理获取表单体
-						Clob clob = result.getClob("form_content");
+					if (SmartFormsSync.GETFORMSDATA.equals(actionType)) { // 处理获取表单体
+						
+						apps.getNames().add(name);
+						Clob clob = result.getClob(clobfield);
 						Reader inStream = clob.getCharacterStream();
 						char[] c = new char[(int) clob.length()];
 						inStream.read(c);
@@ -129,7 +223,7 @@ public class SmartFormsSync {
 				}
 			}
 		} catch (Exception e) {
-			consoleStream.println(e.getMessage());
+			consoleStream.println(e.getLocalizedMessage());
 			consoleStream.println("数据库连接错误请先配置smarforms 参数页");
 
 		} finally {
@@ -203,5 +297,9 @@ public class SmartFormsSync {
 	     System.out.println(test.exeuteRefreshXSP("http://oa.gzsolartech.com:7788/smartforms","lds","password"));
 	    		 
 	}
+
+	
+
+	
 
 }

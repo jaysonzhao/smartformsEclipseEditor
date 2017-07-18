@@ -74,6 +74,34 @@ public class HTMLPlugin extends AbstractUIPlugin {
 	}
 
 	private String formId;
+	private boolean isSubForm=false;
+	public synchronized boolean isSubForm() {
+		return isSubForm;
+	}
+
+	public synchronized void setSubForm(boolean isSubForm) {
+		this.isSubForm = isSubForm;
+	}
+
+	public synchronized boolean isShareForm() {
+		return isShareForm;
+	}
+
+	public synchronized void setShareForm(boolean isShareForm) {
+		this.isShareForm = isShareForm;
+	}
+
+	private boolean isShareForm=false;
+	
+	private boolean isHead = false;
+
+	public synchronized boolean isHead() {
+		return isHead;
+	}
+
+	public synchronized void setHead(boolean isHead) {
+		this.isHead = isHead;
+	}
 
 	public static final String ICON_HTML     = "_icon_html";
 	public static final String ICON_XML      = "_icon_xml";

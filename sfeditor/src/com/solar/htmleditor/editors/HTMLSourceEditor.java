@@ -41,8 +41,15 @@ import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTargetAdapter;
+import org.eclipse.swt.dnd.DropTargetEvent;
+import org.eclipse.swt.dnd.FileTransfer;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -58,6 +65,7 @@ import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.navigator.LocalSelectionTransfer;
 
 import com.egen.develop.util.jspFormatter.JSPFormatter;
 import com.solar.csseditor.editors.ChooseColorAction;
@@ -70,6 +78,7 @@ import com.solar.htmleditor.HTMLProjectParams;
 import com.solar.htmleditor.HTMLUtil;
 import com.solar.htmleditor.SearchXPathDialog;
 import com.solar.htmleditor.assist.HTMLAssistProcessor;
+import com.solar.htmleditor.views.IPaletteItem;
 
 /**
  * HTML source editor.
@@ -731,7 +740,7 @@ public class HTMLSourceEditor extends TextEditor {
 	////////////////////////////////////////////////////////////////////////////
 	// Drag & Drop
 	////////////////////////////////////////////////////////////////////////////
-	/*
+	
 	private class HTMLDropListener extends DropTargetAdapter {
 		public void dragEnter(DropTargetEvent evt){
 			evt.detail = DND.DROP_COPY;
@@ -762,6 +771,7 @@ public class HTMLSourceEditor extends TextEditor {
 			} catch(Exception ex){
 			}
 		}
+		@SuppressWarnings("deprecation")
 		public void drop(DropTargetEvent evt){
 			for(int i=0;i<evt.dataTypes.length;i++){
 				if (TextTransfer.getInstance().isSupportedType(evt.dataTypes[i])){
@@ -783,7 +793,7 @@ public class HTMLSourceEditor extends TextEditor {
 			}
 		}
 	}
-	*/
+	
 
 	public boolean isFileEditorInput(){
 		if(getEditorInput() instanceof IFileEditorInput){
