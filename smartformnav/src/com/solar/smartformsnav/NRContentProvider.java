@@ -70,14 +70,42 @@ public class NRContentProvider implements ITreeContentProvider
                     
             return children;
         	
+        } else if(parentElement instanceof SubFormsNav){
+        	SubFormsNav parent = (SubFormsNav) parentElement;
+            SmartFormsSync formsync = new SmartFormsSync();
+            SmartformInfo forms = formsync.getSubFormbyAPPId(parent.getSid());
+    		FormListNav[] children = new FormListNav[forms.getNames().size()];
+    		for(int i=0; i<forms.getNames().size(); i++)
+    			children[i] = new FormListNav(forms.getNames().get(i), forms.getIds().get(i), true, false);
+                    
+            return children;
+        	
+        }
+        else if(parentElement instanceof ShareSubFormsNav){
+        	ShareSubFormsNav parent = (ShareSubFormsNav) parentElement;
+            SmartFormsSync formsync = new SmartFormsSync();
+            SmartformInfo forms = formsync.getShareSubForm();
+    		FormListNav[] children = new FormListNav[forms.getNames().size()];
+    		for(int i=0; i<forms.getNames().size(); i++)
+    			children[i] = new FormListNav(forms.getNames().get(i), forms.getIds().get(i), false, true);
+                    
+            return children;
+        	
         }
         else if(parentElement instanceof FormListNav)
         {
         	
         	FormListNav parent = (FormListNav) parentElement;
-            FormPartNav[] children = new FormPartNav[2];
-            children[0] = new FormHeadNav("表单头", parent.getSid());
-            children[1] = new FormBodyNav("表单体", parent.getSid());
+        	FormPartNav[] children = null;
+           if(parent.isShareForm() || parent.isSubForm()){
+        	   children = new FormPartNav[1];
+               children[0] = new FormBodyNav("表单体", parent.getSid(),parent.isSubForm(),parent.isShareForm());
+           }else{
+        	   children = new FormPartNav[2];
+        	   children[0] = new FormHeadNav("表单头", parent.getSid(),parent.isSubForm(),parent.isShareForm());
+               children[1] = new FormBodyNav("表单体", parent.getSid(),parent.isSubForm(),parent.isShareForm());
+           }
+           
             
     	
             return children;

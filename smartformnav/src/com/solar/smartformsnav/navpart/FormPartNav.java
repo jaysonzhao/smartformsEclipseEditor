@@ -12,6 +12,24 @@ package com.solar.smartformsnav.navpart;
  */
 public class FormPartNav
 {
+	private boolean isSubForm=false;
+	public synchronized boolean isSubForm() {
+		return isSubForm;
+	}
+
+	public synchronized void setSubForm(boolean isSubForm) {
+		this.isSubForm = isSubForm;
+	}
+
+	public synchronized boolean isShareForm() {
+		return isShareForm;
+	}
+
+	public synchronized void setShareForm(boolean isShareForm) {
+		this.isShareForm = isShareForm;
+	}
+
+	private boolean isShareForm=false;
     private String name = null;
     public synchronized String getSid() {
 		return sid;
@@ -33,6 +51,14 @@ public class FormPartNav
     {
         this.name = name;
         this.sid = sid;
+    }
+    
+    public FormPartNav(String name, String sid,boolean isSubForm, boolean isShareSubForm)
+    {
+        this.name = name;
+        this.sid = sid;
+        this.isSubForm = isSubForm;
+        this.isShareForm = isShareSubForm;
     }
 
     public String getName()

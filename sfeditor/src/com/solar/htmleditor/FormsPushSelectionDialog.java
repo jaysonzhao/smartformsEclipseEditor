@@ -46,6 +46,9 @@ public class FormsPushSelectionDialog extends Window {
 	private Label status;
 	private String formName;
 	private String formId;
+	private boolean isHead;
+	private boolean isSubForm;
+	private boolean isShareSubForm;
 	private SmartformInfo apps; //应用库列表
 	private SmartformInfo forms; //表单列表，由应用库选择更新
 	private SmartformInfo formdata; //取选择的表单内容取数据库表单体
@@ -61,6 +64,9 @@ public class FormsPushSelectionDialog extends Window {
 		getShell().setText(HTMLPlugin.getResourceString("HTMLEditor.PushForm"));
         formName = HTMLPlugin.getDefault().getFormName();
         formId = HTMLPlugin.getDefault().getFormId();
+        isHead = HTMLPlugin.getDefault().isHead();
+        isSubForm = HTMLPlugin.getDefault().isSubForm();
+        isShareSubForm = HTMLPlugin.getDefault().isShareForm();
 		Composite composite = new Composite(parent, SWT.NULL);
 		composite.setLayout(new GridLayout(1, false));
 		composite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
@@ -127,8 +133,17 @@ public class FormsPushSelectionDialog extends Window {
 				int flen = (int) editor.getFile().length();
 				byte[] strBuffer = new byte[flen];
 				formdata.read(strBuffer, 0, flen);
-				formdata.close();
-				formsync.updateFormDatabyFormId(formId, new String(strBuffer));
+				formdata.close(); 
+				if(isShareSubForm){
+					formsync.updateShareSubFormDatabyFormId(formId, new String(strBuffer));
+				}else if(isSubForm){
+					formsync.updateSubFormDatabyFormId(formId, new String(strBuffer));
+				}else if(isHead){
+					formsync.updateFormHeadbyFormId(formId, new String(strBuffer));
+				}else{
+					formsync.updateFormDatabyFormId(formId, new String(strBuffer));
+				}
+				
 				consoleStream.println("updated form content with form ID: " + formId);
 				//优化获取应用库为异步
 				Job retrieveJob = new Job("Refresing server forms JSP") 

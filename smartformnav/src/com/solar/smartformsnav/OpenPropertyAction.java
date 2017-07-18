@@ -104,6 +104,29 @@ public class OpenPropertyAction extends Action {
 		}
 		return false;
 	}
+	
+	private boolean isSubForm() {
+		ISelection selection = provider.getSelection();
+		if (!selection.isEmpty()) {
+			IStructuredSelection sSelection = (IStructuredSelection) selection;
+			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormPartNav) {
+			    
+				return ((FormPartNav)sSelection.getFirstElement()).isSubForm();
+			}
+		}
+		return false;
+	}
+	private boolean isShareSubForm() {
+		ISelection selection = provider.getSelection();
+		if (!selection.isEmpty()) {
+			IStructuredSelection sSelection = (IStructuredSelection) selection;
+			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormPartNav) {
+			    
+				return ((FormPartNav)sSelection.getFirstElement()).isShareForm();
+			}
+		}
+		return false;
+	}
 
 	private HTMLSourceEditor getActiveEditor() {
 		IEditorPart part = HTMLUtil.getActiveEditor();
@@ -127,13 +150,22 @@ public class OpenPropertyAction extends Action {
 		 */
 
 		try {
-			if (isEnabled()&&isBody()) {
+			if (isEnabled()) {
 				// System.out.println(formId);
 				SmartFormsSync formsync = new SmartFormsSync();
-				SmartformInfo formdata = formsync.getFormDatabyFormId(formId);
+				SmartformInfo formdata = null;
+				if(isSubForm()){
+					 formdata = formsync.getSubFormDatabyId(formId);
+				}else if (isShareSubForm()){
+					 formdata = formsync.getShareSubFormDatabyId(formId);
+				}else if(isBody()){//主表单
+					 formdata = formsync.getFormDatabyFormId(formId);
+				}else if(isHead()){//主表单头
+					 formdata = formsync.getFormHeadbyFormId(formId);
+				}
 				
 				HTMLSourceEditor editor = getActiveEditor();
-				if (editor != null) {
+				if (editor != null && formdata != null) {
 					try {
 						FileOutputStream update = new FileOutputStream(editor.getFile());
 						update.write(formdata.getFormdata().getBytes());
@@ -143,6 +175,9 @@ public class OpenPropertyAction extends Action {
 						editor.setFocus();
 						HTMLPlugin.getDefault().setFormId(formId);
 						HTMLPlugin.getDefault().setFormName(formdata.getNames().get(0));
+						HTMLPlugin.getDefault().setSubForm(isSubForm());
+						HTMLPlugin.getDefault().setShareForm(isShareSubForm());
+						HTMLPlugin.getDefault().setHead(isHead());
 					} catch (FileNotFoundException e) {
 						Activator.logError(0, "Form not pull!", e);
 					} catch (IOException e) {
@@ -159,9 +194,9 @@ public class OpenPropertyAction extends Action {
 
 			}
 		} catch (Exception e) {
-			Activator.logError(0, "Could not open property!", e); //$NON-NLS-1$
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "Error Opening Property", //$NON-NLS-1$
-					"Could not open property!"); //$NON-NLS-1$
+			Activator.logError(0, "Could not open!", e); //$NON-NLS-1$
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "Error Opening ", //$NON-NLS-1$
+					"Could not open!"); //$NON-NLS-1$
 		}
 	}
 }
