@@ -125,6 +125,8 @@ public class HTMLEditorPreferencePage extends FieldEditorPreferencePage implemen
 						{HTMLPlugin.getResourceString("HTMLEditorPreferencePage.EditorNoPreview"),"noPreview"}
 					},parent,true);
 		addField(editorType);
+		addField(new StringFieldEditor(HTMLPlugin.FORMS_WORKING_PROJECT, "SMARTFORMS WORING PROJECT:",
+	               parent));
 		addField(new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DB, "SMARTFORMS DB URL:",
                parent));
         addField(new StringFieldEditor(HTMLPlugin.FORMS_SERVER_DBUSER, "DB USERNAME:",

@@ -214,6 +214,7 @@ public class HTMLPlugin extends AbstractUIPlugin {
     public static final String FORMS_SERVER_URL = "_pref_formserver_url";
 	public static final String FORMS_SERVER_DEVUSER = "_pref_formserver_devuser";
 	public static final String FORMS_SERVER_DEVPASS = "_pref_formserver_devpassword";
+	public static final String FORMS_WORKING_PROJECT = "_pref_forms_project";
 	public static final String[] SUPPORTED_IMAGE_TYPES = {
 			"gif","png","jpg","jpeg","bmp"
 	};

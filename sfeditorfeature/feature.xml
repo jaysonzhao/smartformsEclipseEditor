@@ -2,7 +2,7 @@
 <feature
       id="com.solar.htmleditor.feature"
       label="Smartforms HTML Editor"
-      version="3.3"
+      version="3.4.1"
       provider-name="GZSolartech">
 
    <description url="http://www.example.com/description">
@@ -21,14 +21,14 @@
          id="com.solar.htmleditor"
          download-size="0"
          install-size="0"
-         version="3.3.0"
+         version="3.4.1"
          unpack="false"/>
 
    <plugin
          id="smartformsnav"
          download-size="0"
          install-size="0"
-         version="2.0.0"
+         version="3.0.1"
          unpack="false"/>
 
 </feature>

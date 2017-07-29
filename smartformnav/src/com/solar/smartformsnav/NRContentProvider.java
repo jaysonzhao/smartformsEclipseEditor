@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+import com.solar.htmleditor.HTMLPlugin;
 import com.solar.htmleditor.assist.SmartFormsSync;
 import com.solar.htmleditor.assist.SmartformInfo;
 import com.solar.smartformsnav.navpart.APPNav;
@@ -36,9 +37,9 @@ public class NRContentProvider implements ITreeContentProvider
     
     public Object[] getChildren(Object parentElement)
     {
-        if(parentElement instanceof IProject)
+        if((parentElement instanceof IProject )&&((IProject) parentElement).getName().equals(HTMLPlugin.getDefault().getPreferenceStore().getString(HTMLPlugin.FORMS_WORKING_PROJECT)))
         {
-            NRParent parent = new NRParent("智能表单平台应用库");
+            NRParent parent = new NRParent("Smartforms");
             return new NRParent[]{parent};
         }
         else if(parentElement instanceof NRParent)
@@ -99,11 +100,11 @@ public class NRContentProvider implements ITreeContentProvider
         	FormPartNav[] children = null;
            if(parent.isShareForm() || parent.isSubForm()){
         	   children = new FormPartNav[1];
-               children[0] = new FormBodyNav("表单体", parent.getSid(),parent.isSubForm(),parent.isShareForm());
+               children[0] = new FormBodyNav(parent.getName(), parent.getSid(),parent.isSubForm(),parent.isShareForm());
            }else{
         	   children = new FormPartNav[2];
-        	   children[0] = new FormHeadNav("表单头", parent.getSid(),parent.isSubForm(),parent.isShareForm());
-               children[1] = new FormBodyNav("表单体", parent.getSid(),parent.isSubForm(),parent.isShareForm());
+        	   children[0] = new FormHeadNav(parent.getName(), parent.getSid(),parent.isSubForm(),parent.isShareForm());
+               children[1] = new FormBodyNav(parent.getName(), parent.getSid(),parent.isSubForm(),parent.isShareForm());
            }
            
             
