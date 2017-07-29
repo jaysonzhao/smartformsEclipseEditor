@@ -11,11 +11,15 @@
 
 package com.solar.smartformsnav;
 
-import java.io.FileNotFoundException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.InputStream;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -26,6 +30,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
+import org.eclipse.ui.ide.IDE;
 
 import com.solar.htmleditor.HTMLPlugin;
 import com.solar.htmleditor.HTMLUtil;
@@ -47,6 +52,7 @@ public class OpenPropertyAction extends Action {
 	private String formId;
 	private String formName;
 	private ISelectionProvider provider;
+	private String formPart;
 
 	/**
 	 * Construct the OpenPropertyAction with the given page.
@@ -72,7 +78,7 @@ public class OpenPropertyAction extends Action {
 		if (!selection.isEmpty()) {
 			IStructuredSelection sSelection = (IStructuredSelection) selection;
 			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormPartNav) {
-				
+
 				formName = ((FormPartNav) sSelection.getFirstElement()).getName();
 				formId = ((FormPartNav) sSelection.getFirstElement()).getSid();
 				return true;
@@ -80,49 +86,50 @@ public class OpenPropertyAction extends Action {
 		}
 		return false;
 	}
-	
+
 	private boolean isHead() {
 		ISelection selection = provider.getSelection();
 		if (!selection.isEmpty()) {
 			IStructuredSelection sSelection = (IStructuredSelection) selection;
 			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormHeadNav) {
-			
+				formPart = "Head";
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	private boolean isBody() {
 		ISelection selection = provider.getSelection();
 		if (!selection.isEmpty()) {
 			IStructuredSelection sSelection = (IStructuredSelection) selection;
 			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormBodyNav) {
-			
+				formPart = "Body";
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	private boolean isSubForm() {
 		ISelection selection = provider.getSelection();
 		if (!selection.isEmpty()) {
 			IStructuredSelection sSelection = (IStructuredSelection) selection;
 			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormPartNav) {
-			    
-				return ((FormPartNav)sSelection.getFirstElement()).isSubForm();
+
+				return ((FormPartNav) sSelection.getFirstElement()).isSubForm();
 			}
 		}
 		return false;
 	}
+
 	private boolean isShareSubForm() {
 		ISelection selection = provider.getSelection();
 		if (!selection.isEmpty()) {
 			IStructuredSelection sSelection = (IStructuredSelection) selection;
 			if (sSelection.size() == 1 && sSelection.getFirstElement() instanceof FormPartNav) {
-			    
-				return ((FormPartNav)sSelection.getFirstElement()).isShareForm();
+
+				return ((FormPartNav) sSelection.getFirstElement()).isShareForm();
 			}
 		}
 		return false;
@@ -154,42 +161,51 @@ public class OpenPropertyAction extends Action {
 				// System.out.println(formId);
 				SmartFormsSync formsync = new SmartFormsSync();
 				SmartformInfo formdata = null;
-				if(isSubForm()){
-					 formdata = formsync.getSubFormDatabyId(formId);
-				}else if (isShareSubForm()){
-					 formdata = formsync.getShareSubFormDatabyId(formId);
-				}else if(isBody()){//主表单
-					 formdata = formsync.getFormDatabyFormId(formId);
-				}else if(isHead()){//主表单头
-					 formdata = formsync.getFormHeadbyFormId(formId);
+				if (isSubForm()) {
+					formdata = formsync.getSubFormDatabyId(formId);
+				} else if (isShareSubForm()) {
+					formdata = formsync.getShareSubFormDatabyId(formId);
+				} else if (isBody()) {// 主表单
+					formdata = formsync.getFormDatabyFormId(formId);
+				} else if (isHead()) {// 主表单头
+					formdata = formsync.getFormHeadbyFormId(formId);
 				}
+
 				
-				HTMLSourceEditor editor = getActiveEditor();
-				if (editor != null && formdata != null) {
-					try {
-						FileOutputStream update = new FileOutputStream(editor.getFile());
-						update.write(formdata.getFormdata().getBytes());
-						update.flush();
-						update.close();
-						editor.doSave(new NullProgressMonitor());
-						editor.setFocus();
+				if (formdata != null) {
+					
+
+						IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(HTMLPlugin.getDefault()
+								.getPreferenceStore().getString(HTMLPlugin.FORMS_WORKING_PROJECT));
+						if (project != null) {
+ 
+							 String formFileName = formName + formId.substring(7, 11) + formPart + ".xsp";
+							 IFile file = project.getFile(new Path(formFileName));
+						     InputStream inputStreamJava = new ByteArrayInputStream(formdata.getFormdata().getBytes());
+							 if (!file.exists()){
+							     file.create(inputStreamJava, false, null);
+							 }else{
+								 FileOutputStream update = new FileOutputStream(file.getLocation().toOSString());
+									update.write(formdata.getFormdata().getBytes());
+									update.flush();
+									update.close();
+							 }
+							
+							IDE.openEditor(page, file);
+						}
+
 						HTMLPlugin.getDefault().setFormId(formId);
 						HTMLPlugin.getDefault().setFormName(formdata.getNames().get(0));
 						HTMLPlugin.getDefault().setSubForm(isSubForm());
 						HTMLPlugin.getDefault().setShareForm(isShareSubForm());
 						HTMLPlugin.getDefault().setHead(isHead());
-					} catch (FileNotFoundException e) {
-						Activator.logError(0, "Form not pull!", e);
-					} catch (IOException e) {
-						Activator.logError(0, "Local file open error!", e);
-					}
+					
 
-				}
-				else{
+				} else {
 					MessageConsole console = HTMLPlugin.getDefault().getConsole();
 					final MessageConsoleStream consoleStream = console.newMessageStream();
 					consoleStream.println("Please Open a xsp file first.");
-					
+
 				}
 
 			}
